@@ -28,7 +28,7 @@ concurrency:
 
 jobs:
   collect-and-audit:
-    if: ${{ github.event.repository.private == false && ((github.event_name == 'workflow_dispatch' && inputs.run_primary_audit == true) || (github.event_name == 'push' && github.event.head_commit.message == 'Authorize one primary-data audit run')) }}
+    if: ${{ github.event.repository.private == false && ((github.event_name == 'workflow_dispatch' && inputs.run_primary_audit == true) || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'Authorize one primary-data audit run'))) }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
