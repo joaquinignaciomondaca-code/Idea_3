@@ -1,0 +1,62 @@
+name: Primary data acquisition and audit
+
+# No scheduled runs, PR runs or ordinary push runs. A specially authorized
+# commit on the session branch can start one job without changing main.
+# Manual dispatch is available once GitHub registers the workflow on default.
+on:
+  push:
+    branches: ['arena/214e9ea3-idea-3']
+    paths:
+      - '.github/workflows/primary-data-audit.yml'
+      - 'scripts/collect_primary_archives.py'
+      - 'scripts/audit_primary_bundle.py'
+      - 'scripts/audit_primary_prices.py'
+  workflow_dispatch:
+    inputs:
+      run_primary_audit:
+        description: 'Authorize one noncommercial official-data acquisition and audit (public repo only)'
+        type: boolean
+        required: true
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: primary-data-audit
+  cancel-in-progress: false
+
+jobs:
+  collect-and-audit:
+    if: ${{ github.event.repository.private == false && ((github.event_name == 'workflow_dispatch' && inputs.run_primary_audit == true) || (github.event_name == 'push' && github.event.head_commit.message == 'Authorize one primary-data audit run')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out requested revision without persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Verify Python version
+        run: python3 -c "import sys; assert sys.version_info >= (3, 11)"
+      - name: Preserve official terms and attribution with research data
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p data/primary_import
+          gh api 'repos/binance/binance-public-data/contents/TERMS_AND_CONDITIONS.md?ref=d571690eb66760763b0bd6e27e8cd35603c7e244' -H 'Accept: application/vnd.github.raw+json' > data/primary_import/BINANCE_TERMS.md
+          printf '%s\n' 'Source: Binance Vision, https://data.binance.vision/' 'Noncommercial research only. Dataset terms: Binance Vision Dataset Terms v1.0, CC BY-NC-SA 4.0 unless designated otherwise; see BINANCE_TERMS.md.' 'No endorsement, no trading approval, no guarantee of accuracy.' > data/primary_import/ATTRIBUTION.txt
+      - name: Download official spot archives and original checksums
+        run: python3 -m scripts.collect_primary_archives --download
+      - name: Audit coverage and receipts, without approving source provenance or trading
+        run: python3 -m scripts.audit_primary_bundle
+      - name: Preserve original files and audit, including partial failures
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: primary-BTCUSDT-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            data/primary_import/
+            artifacts/primary_bundle/BTCUSDT_report.json
+          if-no-files-found: warn
+          retention-days: 7
+          compression-level: 0
