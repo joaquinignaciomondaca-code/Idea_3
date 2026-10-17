@@ -17,7 +17,7 @@ from scripts.audit_primary_prices import read_archive
 from scripts.collect_primary_archives import archive_plan
 
 
-def audit_bundle(directory, plan):
+def audit_bundle(directory, plan, compare_mirror=True):
     directory = Path(directory)
     canonical_plan = archive_plan(plan['symbol'], date.fromisoformat(plan['start']), date.fromisoformat(plan['end']))
     if plan != canonical_plan:
@@ -88,7 +88,7 @@ def audit_bundle(directory, plan):
         report['input_receipts_sha256'] = {e['name']: hashlib.sha256(
             (directory/(e['name']+'.receipt.json')).read_bytes()).hexdigest() for e in plan['entries']}
     mirror_path = Path('data/btc_sma200/raw.csv')
-    if plan['symbol'] == 'BTCUSDT' and mirror_path.exists():
+    if compare_mirror and plan['symbol'] == 'BTCUSDT' and mirror_path.exists():
         with mirror_path.open() as stream:
             for mirror in csv.DictReader(stream):
                 day = mirror['open_time'][:10]

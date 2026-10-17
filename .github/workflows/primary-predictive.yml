@@ -1,0 +1,72 @@
+name: Primary candle predictive replay
+
+on:
+  push:
+    branches: ['arena/214e9ea3-idea-3']
+    paths:
+      - '.github/workflows/primary-predictive.yml'
+      - 'scripts/run_primary_predictive.py'
+      - 'scripts/publish_predictive_check.py'
+      - 'microtrade/**'
+      - 'experiments/binance_primary_predictive.json'
+      - 'tests/test_primary_predictive.py'
+  workflow_dispatch:
+    inputs:
+      run_predictive_replay:
+        type: boolean
+        required: true
+        default: false
+        description: 'Run one noncommercial prediction diagnostic; public repo only'
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+concurrency:
+  group: primary-predictive-replay
+  cancel-in-progress: false
+
+jobs:
+  replay:
+    if: ${{ github.event.repository.private == false && ((github.event_name == 'workflow_dispatch' && inputs.run_predictive_replay == true) || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'Authorize primary predictive replay'))) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Test the adapter offline before using real archives
+        run: python3 -m unittest discover -s tests -p test_primary_predictive.py -v
+      - name: Obtain pinned artifact metadata from GitHub API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p data
+          gh api repos/joaquinignaciomondaca-code/Idea_3/actions/artifacts/12117929369 > data/primary_artifact_metadata.json
+      - name: Retrieve original research package inside the runner
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: joaquinignaciomondaca-code/Idea_3
+          run-id: 39079361222
+          name: primary-BTCUSDT-39079361222-1
+          path: data/primary_ci_input
+      - name: Reaudit originals and evaluate fixed versus adaptive twice
+        run: python3 -m scripts.run_primary_predictive --package data/primary_ci_input --metadata data/primary_artifact_metadata.json
+      - name: Publish bounded aggregate result through GitHub Checks API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 -m scripts.publish_predictive_check --summary data/primary_predictive_run/summary.json
+      - name: Preserve research records with attribution and terms
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: primary-predictive-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            data/primary_predictive_run/
+            data/primary_artifact_metadata.json
+            data/primary_ci_input/data/primary_import/BINANCE_TERMS.md
+            data/primary_ci_input/data/primary_import/ATTRIBUTION.txt
+          if-no-files-found: warn
+          retention-days: 7
