@@ -44,3 +44,11 @@ El workflow conserva los términos oficiales de Binance Vision de la revisión `
 ## Verificación local adicional
 
 Se ejecutó la suite completa: **63 tests pasaron**. Son verificaciones de software, no validación independiente de precios o rentabilidad. El resumen legible por máquina es `summary.json`, con metadatos reales de run/artifact y las limitaciones anteriores.
+
+## Actualización posterior: cálculo y lectura remotos resueltos
+
+Se ejecutó el predictor sobre el artifact original en el runner y se recuperó
+el informe agregado mediante GitHub Checks API. Ver [replay ejecutado](../binance_primary_predictive/informe.md).
+Las limitaciones de recuperación de ZIP arriba describen la etapa anterior:
+los ZIP siguen sin importarse aquí, pero **los resultados ya se calcularon y se
+leyeron localmente**. No se habilitó trading ni se verificaron costos/filtros.

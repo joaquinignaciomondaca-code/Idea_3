@@ -1,0 +1,14 @@
+{
+  "id": 117535369229,
+  "name": "Primary predictive replay \u2014 aggregate report",
+  "head_sha": "0be6d81569462d3956d1d5f476a1fa0dd3fb4dfd",
+  "conclusion": "success",
+  "html_url": "https://github.com/joaquinignaciomondaca-code/Idea_3/runs/117535369229",
+  "started_at": "2026-10-17T23:44:42Z",
+  "completed_at": "2026-10-17T23:44:42Z",
+  "run_id": 39080171438,
+  "run_url": "https://github.com/joaquinignaciomondaca-code/Idea_3/actions/runs/39080171438",
+  "workflow_path": ".github/workflows/primary-predictive.yml",
+  "app": "github-actions",
+  "summary_sha256": "af179ea1ee372d642b23d9417f823025e5422fa1854d49d4211f25ccdb5b1ed0"
+}

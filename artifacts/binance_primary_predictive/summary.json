@@ -1,0 +1,277 @@
+{
+  "archive_audit": {
+    "errors": [],
+    "expected_archives": 82,
+    "expected_rows": 1730,
+    "extra_dates": [],
+    "missing_dates": [],
+    "observed_rows": 1730,
+    "status": "CONSISTENT_PACKAGE_REQUIRES_PROVENANCE_COSTS_AND_FILTERS_REVIEW",
+    "valid_archives": 82
+  },
+  "audit": {
+    "adaptive_updates": 1363,
+    "events": 6816,
+    "integrity": "local_hash_chain_and_causal_event_order_verified_not_external_attestation",
+    "last_event_sha256": "fb5f674fa4d2655090f92dac24f68f064c0b1c1a8a962caf5a720238a883818f",
+    "outcomes": 2726,
+    "predictions": 2726
+  },
+  "candidate_csv_sha256": "3f9d79f27bee73c472a52d3c0f9df70301867fc9e86d08c8b34d42c662a13d00",
+  "code_sha256": {
+    "microtrade/online.py": "ca7fec67ecc283ead22abefc4afd381a7b29a8d9c256efffa68179b171e695d5",
+    "microtrade/reference_online.py": "0216bbb6bda90002057209a08d62d17ba7b7bd8058361918c8188cd90c43c83e",
+    "scripts/run_primary_predictive.py": "c89bc3e53a13204165bdb67f0cc9339efd6ec5fed7d0afbf74533dc2c07c982e"
+  },
+  "data_rows": 1730,
+  "data_window": [
+    "2022-01-01",
+    "2026-09-26"
+  ],
+  "execution_costs_verified": false,
+  "experiment_id": "BINANCE-PRIMARY-PREDICTIVE-001",
+  "first_target": "2023-01-03",
+  "initial_snapshot_sha256": "bda4b5ef8905a6ae85a7d6725b5edc55afd1c65dbf33b531f3cbc5c7f52c8aec",
+  "last_target": "2026-09-26",
+  "license": "Binance Vision Dataset Terms v1.0; CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only",
+  "market_run_enabled": false,
+  "metrics": {
+    "diagnostic_2023_2024": {
+      "adaptive": {
+        "accuracy": 0.49657064471879286,
+        "brier": 0.2590147817907794,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "mean_probability": 0.17407842704087376,
+            "n": 2,
+            "observed_frequency": 0.5,
+            "upper": 0.2
+          },
+          {
+            "lower": 0.2,
+            "mean_probability": 0.35760585427331987,
+            "n": 49,
+            "observed_frequency": 0.6530612244897959,
+            "upper": 0.4
+          },
+          {
+            "lower": 0.4,
+            "mean_probability": 0.49943837127968377,
+            "n": 608,
+            "observed_frequency": 0.5032894736842105,
+            "upper": 0.6
+          },
+          {
+            "lower": 0.6,
+            "mean_probability": 0.6536293306771884,
+            "n": 69,
+            "observed_frequency": 0.4927536231884058,
+            "upper": 0.8
+          },
+          {
+            "lower": 0.8,
+            "mean_probability": 0.8300965878285815,
+            "n": 1,
+            "observed_frequency": 1,
+            "upper": 1.0
+          }
+        ],
+        "ece_5_bins_descriptive": 0.03942517664934877,
+        "log_loss": 0.7122455905979834,
+        "n": 729
+      },
+      "constant_p_0_5": {
+        "accuracy": 0.4869684499314129,
+        "brier": 0.25,
+        "calibration_bins": [
+          {
+            "lower": 0.4,
+            "mean_probability": 0.5,
+            "n": 729,
+            "observed_frequency": 0.5130315500685871,
+            "upper": 0.6
+          }
+        ],
+        "ece_5_bins_descriptive": 0.013031550068587139,
+        "log_loss": 0.6931471805599453,
+        "n": 729
+      },
+      "first_target": "2023-01-03",
+      "fixed": {
+        "accuracy": 0.5006858710562414,
+        "brier": 0.2755606385932401,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "mean_probability": 0.17216308330157426,
+            "n": 22,
+            "observed_frequency": 0.5454545454545454,
+            "upper": 0.2
+          },
+          {
+            "lower": 0.2,
+            "mean_probability": 0.32855495828492365,
+            "n": 391,
+            "observed_frequency": 0.5012787723785166,
+            "upper": 0.4
+          },
+          {
+            "lower": 0.4,
+            "mean_probability": 0.45668614323998985,
+            "n": 306,
+            "observed_frequency": 0.5294117647058824,
+            "upper": 0.6
+          },
+          {
+            "lower": 0.6,
+            "mean_probability": 0.6311185469671945,
+            "n": 10,
+            "observed_frequency": 0.4,
+            "upper": 0.8
+          }
+        ],
+        "ece_5_bins_descriptive": 0.1376030852074009,
+        "log_loss": 0.751235308024845,
+        "n": 729
+      },
+      "last_target": "2024-12-31",
+      "persistence": {
+        "accuracy": 0.5212620027434842,
+        "brier": 0.2503737997256516,
+        "calibration_bins": [
+          {
+            "lower": 0.4,
+            "mean_probability": 0.501440329218107,
+            "n": 729,
+            "observed_frequency": 0.5130315500685871,
+            "upper": 0.6
+          }
+        ],
+        "ece_5_bins_descriptive": 0.011591220850480144,
+        "log_loss": 0.6939056876092429,
+        "n": 729
+      }
+    },
+    "diagnostic_2025_2026": {
+      "adaptive": {
+        "accuracy": 0.4747634069400631,
+        "brier": 0.2597695049766344,
+        "calibration_bins": [
+          {
+            "lower": 0.2,
+            "mean_probability": 0.3563156933943449,
+            "n": 41,
+            "observed_frequency": 0.5609756097560976,
+            "upper": 0.4
+          },
+          {
+            "lower": 0.4,
+            "mean_probability": 0.5014983406554381,
+            "n": 574,
+            "observed_frequency": 0.5034843205574913,
+            "upper": 0.6
+          },
+          {
+            "lower": 0.6,
+            "mean_probability": 0.6353796067570663,
+            "n": 19,
+            "observed_frequency": 0.15789473684210525,
+            "upper": 0.8
+          }
+        ],
+        "ece_5_bins_descriptive": 0.02934262076182121,
+        "log_loss": 0.7132885751739156,
+        "n": 634
+      },
+      "constant_p_0_5": {
+        "accuracy": 0.5031545741324921,
+        "brier": 0.25,
+        "calibration_bins": [
+          {
+            "lower": 0.4,
+            "mean_probability": 0.5,
+            "n": 634,
+            "observed_frequency": 0.4968454258675079,
+            "upper": 0.6
+          }
+        ],
+        "ece_5_bins_descriptive": 0.003154574132492094,
+        "log_loss": 0.6931471805599453,
+        "n": 634
+      },
+      "first_target": "2025-01-01",
+      "fixed": {
+        "accuracy": 0.4952681388012618,
+        "brier": 0.2657641338787808,
+        "calibration_bins": [
+          {
+            "lower": 0.0,
+            "mean_probability": 0.1695175195964152,
+            "n": 4,
+            "observed_frequency": 0.25,
+            "upper": 0.2
+          },
+          {
+            "lower": 0.2,
+            "mean_probability": 0.3422759913635185,
+            "n": 315,
+            "observed_frequency": 0.4857142857142857,
+            "upper": 0.4
+          },
+          {
+            "lower": 0.4,
+            "mean_probability": 0.45629456806602975,
+            "n": 301,
+            "observed_frequency": 0.5182724252491694,
+            "upper": 0.6
+          },
+          {
+            "lower": 0.6,
+            "mean_probability": 0.6393235604186701,
+            "n": 14,
+            "observed_frequency": 0.35714285714285715,
+            "upper": 0.8
+          }
+        ],
+        "ece_5_bins_descriptive": 0.10743037460582401,
+        "log_loss": 0.7273399322841088,
+        "n": 634
+      },
+      "last_target": "2026-09-26",
+      "persistence": {
+        "accuracy": 0.47003154574132494,
+        "brier": 0.25549684542586754,
+        "calibration_bins": [
+          {
+            "lower": 0.4,
+            "mean_probability": 0.4996845425867508,
+            "n": 634,
+            "observed_frequency": 0.4968454258675079,
+            "upper": 0.6
+          }
+        ],
+        "ece_5_bins_descriptive": 0.002839116719242918,
+        "log_loss": 0.7041861390447101,
+        "n": 634
+      }
+    }
+  },
+  "mirror_comparison_performed": false,
+  "point_in_time_publication_verified": false,
+  "prediction_source_provenance_review": "Pinned acquisition run and artifact, original HTTPS receipts and hashes reaudited; predictive research only.",
+  "repeated_metrics_equal": true,
+  "source": {
+    "acquisition_run_id": 39079361222,
+    "artifact_digest": "sha256:af7208f3daaacc306b2e2d752bab6f4d1a47642555e423abdb82f87ec6f40278",
+    "artifact_id": 12117929369,
+    "artifact_name": "primary-BTCUSDT-39079361222-1",
+    "license": "Binance Vision Dataset Terms v1.0; CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only",
+    "origin": "https://data.binance.vision/",
+    "repository": "joaquinignaciomondaca-code/Idea_3",
+    "revision": "08eb12e0e22f32362383fb78bcbd34ab74b0eee7"
+  },
+  "spec_sha256": "37fbea0668d3a5aa8b3471f013dd582b2e5323e804cae0f9577e59e96ffd4b0e",
+  "trading_backtest": false,
+  "winner_selected": false
+}
