@@ -1,0 +1,38 @@
+{
+  "run_id": 39079361222,
+  "run_url": "https://github.com/joaquinignaciomondaca-code/Idea_3/actions/runs/39079361222",
+  "head_sha": "08eb12e0e22f32362383fb78bcbd34ab74b0eee7",
+  "status": "completed",
+  "conclusion": "success",
+  "repository_visibility_verified": "public",
+  "workflow_started_at": "2026-10-17T23:31:31Z",
+  "workflow_updated_at": "2026-10-17T23:32:24Z",
+  "remote_acquisition_and_strict_audit": "SUCCESS",
+  "expected_archives": 82,
+  "expected_dates": [
+    "2022-01-01",
+    "2026-09-26"
+  ],
+  "coverage_evidence": "Successful exit of strict auditor in pinned workflow. Original report preserved inside remote artifact; not yet read locally.",
+  "artifacts": [
+    {
+      "id": 12117929369,
+      "name": "primary-BTCUSDT-39079361222-1",
+      "size_in_bytes": 364613,
+      "digest": "sha256:af7208f3daaacc306b2e2d752bab6f4d1a47642555e423abdb82f87ec6f40278",
+      "expired": false,
+      "expires_at": "2026-10-24T23:32:22Z"
+    }
+  ],
+  "artifact_local_download": "BLOCKED_BY_STORAGE_HOST_RESTRICTION",
+  "local_primary_candles_imported": false,
+  "market_model_trained_on_these_candles": false,
+  "execution_costs_and_filters_verified": false,
+  "license": "Binance Vision dataset terms v1.0, CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only. Attribution and full terms included in artifact.",
+  "previous_run": {
+    "id": 39079319080,
+    "conclusion": "skipped",
+    "reason": "Exact commit-message guard did not tolerate automatic coauthor trailer; fixed to startsWith."
+  },
+  "safety": "Standard ubuntu-latest runner, timeout 10 min, contents read, no broker or trading secrets, original source archives retained in artifact, raw prices not committed."
+}
