@@ -1,0 +1,111 @@
+{
+  "id": "CONVERGED-CLASSIFIER-001",
+  "specified_on": "2026-10-17",
+  "source": {
+    "revision": "08eb12e0e22f32362383fb78bcbd34ab74b0eee7",
+    "acquisition_run_id": 39079361222,
+    "artifact_id": 12117929369,
+    "artifact_name": "primary-BTCUSDT-39079361222-1",
+    "artifact_digest": "sha256:af7208f3daaacc306b2e2d752bab6f4d1a47642555e423abdb82f87ec6f40278",
+    "repository": "joaquinignaciomondaca-code/Idea_3",
+    "origin": "https://data.binance.vision/",
+    "license": "Binance Vision terms, CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only"
+  },
+  "data_window": [
+    "2022-01-01",
+    "2026-09-26"
+  ],
+  "outer_blocks": [
+    {
+      "name": "outer_2023",
+      "test": [
+        "2023-01-01",
+        "2023-12-31"
+      ],
+      "inner": [
+        [
+          "2022-07-01",
+          "2022-09-30"
+        ],
+        [
+          "2022-10-01",
+          "2022-12-30"
+        ]
+      ]
+    },
+    {
+      "name": "outer_2024",
+      "test": [
+        "2024-01-01",
+        "2024-12-31"
+      ],
+      "inner": [
+        [
+          "2023-07-01",
+          "2023-09-30"
+        ],
+        [
+          "2023-10-01",
+          "2023-12-30"
+        ]
+      ]
+    },
+    {
+      "name": "outer_2025_2026",
+      "test": [
+        "2025-01-01",
+        "2026-09-26"
+      ],
+      "inner": [
+        [
+          "2024-07-01",
+          "2024-09-30"
+        ],
+        [
+          "2024-10-01",
+          "2024-12-30"
+        ]
+      ]
+    }
+  ],
+  "alphas": [
+    0.001,
+    0.01,
+    0.1
+  ],
+  "search_candidates": 18,
+  "fits_per_pass": 54,
+  "passes": 2,
+  "label": "close[i+2]>open[i+2], ties not up",
+  "features": "Exact baseline3/all24, same order, warmup90 and per-fit median/IQR clipping as FEATURE-ABLATION-001. No removal/addition of columns.",
+  "training": "Fixed models only; last365 mature feature examples j>=90,j+2<=test_start-2,min60. No adaptive updates. SGD10 lr.001,l2.01 reproduced as comparator; converged same-alpha and converged inner-selected-alpha.",
+  "objective": "mean logistic loss + alpha/2*sum(nonintercept_weights**2). Newton/Armijo max100iterations gradient_inf<1e-8, Armijo with 4*machine_epsilon rounding allowance; abort if final gradient_inf>1e-7 or train maxabslogit>=35. Outer converged fits verified by SciPy L-BFGS-B numerical jac, objective difference<=1e-9 and coefficient difference<=1e-4.",
+  "selection": "Three alphas per feature set and outer block. Observation-weighted inner log_loss, two prior folds. Tie smaller alpha. Prefix-only selector. Freeze both selections before external evaluation.",
+  "controls": [
+    "same-recipe SGD10",
+    "converged same alpha .01 isolates optimizer effect",
+    "constant .5",
+    "historical prior (ups+1)/(n+2) from same mature training labels",
+    "persistence .55/.45"
+  ],
+  "primary_metric": "log_loss; all blocks and pooled observation-weighted results, no winner selection by test",
+  "secondary_metrics": [
+    "Brier",
+    "accuracy",
+    "all selected params and convergence audits"
+  ],
+  "uncertainty": "Selected-vs-SGD10,vs.5,vs historical-prior paired log_loss differences; circular block bootstrap independently within each external block, lengths14/60days,2000replicates,seed1701,percentile95%. Both reported, exploratory, no multiplicity correction or cure for prior inspection.",
+  "budget": "18 candidates x2inner folds=36 fits +18outerfits=54 per pass. Two passes108 fits plus24 independent outer SciPy solver checks. No search for seeds, epoch counts, horizon, thresholds or metric.",
+  "gates": [
+    "Exact source/data match prior feature study",
+    "Reproduce prior fixed SGD10 metrics within1e-12",
+    "Abort on failed convergence or independent solver disagreement; do not silently drop a fit",
+    "Repeated fit/selection/prediction/metrics/CI results identical"
+  ],
+  "caveats": [
+    "All history already inspected, no pristine holdout claim",
+    "Early stopping may regularize: more converged train need not improve external scores",
+    "No global selection between families using external results",
+    "No PnL, costs verified, live trading, Laya, population or paid inference"
+  ]
+}
