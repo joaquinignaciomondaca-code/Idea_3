@@ -1,0 +1,59 @@
+{
+  "id": "RISK-PERSISTENCE-001",
+  "specified_on": "2026-10-17",
+  "source": {
+    "revision": "08eb12e0e22f32362383fb78bcbd34ab74b0eee7",
+    "acquisition_run_id": 39079361222,
+    "artifact_id": 12117929369,
+    "artifact_name": "primary-BTCUSDT-39079361222-1",
+    "artifact_digest": "sha256:af7208f3daaacc306b2e2d752bab6f4d1a47642555e423abdb82f87ec6f40278",
+    "repository": "joaquinignaciomondaca-code/Idea_3",
+    "origin": "https://data.binance.vision/",
+    "license": "Binance Vision terms, CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only"
+  },
+  "data_window": [
+    "2022-01-01",
+    "2026-09-26"
+  ],
+  "test": [
+    "2023-01-01",
+    "2026-09-26"
+  ],
+  "blocks": [
+    [
+      "2023-01-01",
+      "2023-12-31"
+    ],
+    [
+      "2024-01-01",
+      "2024-12-31"
+    ],
+    [
+      "2025-01-01",
+      "2026-09-26"
+    ]
+  ],
+  "models": [
+    "constant_train",
+    "rolling20",
+    "rolling60",
+    "ewma94",
+    "range20"
+  ],
+  "hpo_trials": 0,
+  "passes": 2,
+  "target": "Squared close-to-close daily logreturn at t+2; noisy second-moment proxy, not observed latent variance. Conditional variance interpretation requires negligible conditional mean.",
+  "forecast": "Cutoff close t, target day t+2. No intermediate unknown return supplied. EWMA multi-step forecast held constant under its zero-drift variance-martingale assumption.",
+  "definitions": "constant mean r2 January2 to December30 2022 frozen; rolling means20/60 r2; EWMA lambda.94 seed first60 r2 then chronological recursion; range20 mean log(H/L)^2/(4log2), diffusion/no-drift/no-jump assumptions not guaranteed. Variance floor1e-12, never optimize.",
+  "primary_metric": "QLIKE=log(h)+y/h; finite for y=0; additive outcome-only constants omitted, can be negative. Lower better; never divide QLIKE values for percentage skill.",
+  "secondary_metric": "MSE on squared return; not MAE on variance as primary, not direction or PnL",
+  "uncertainty": "EWMA94,rolling60,range20 vs rolling20 paired QLIKE delta; circular bootstrap per cohort,14/60days,2000replicates,seed1701. All comparisons reported, exploratory, no multiplicity correction.",
+  "budget": "Five prespecified forecasts per day, no fitted optimizer or grid. Two identical passes,1365 target days each. No selecting winner to deploy.",
+  "caveats": [
+    "New risk question cannot rescue old directional scores",
+    "No intraday data: not HAR-RV or exact Corsi replication",
+    "QLIKE robustness requires proxy assumptions, not guaranteed for BTC or range estimator",
+    "All history inspected, no pristine holdout. Forecasting risk alone is not trading edge",
+    "No PnL USD20, VaR coverage claims, costs verified, live orders, paid inference"
+  ]
+}

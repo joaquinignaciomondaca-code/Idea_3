@@ -1,0 +1,75 @@
+name: Risk persistence diagnostic
+on:
+  push:
+    branches: ['arena/214e9ea3-idea-3']
+    paths:
+      - '.github/workflows/risk-persistence.yml'
+      - 'experiments/risk_persistence.json'
+      - 'requirements-features.txt'
+      - 'microtrade/risk_forecast.py'
+      - 'scripts/run_risk_study.py'
+      - 'tests/test_risk_forecast.py'
+  workflow_dispatch:
+    inputs:
+      run_risk_study:
+        description: 'Run bounded noncommercial risk forecast diagnostic, public repo only'
+        type: boolean
+        required: true
+        default: false
+permissions:
+  contents: read
+  actions: read
+  checks: write
+concurrency:
+  group: risk-persistence
+  cancel-in-progress: false
+jobs:
+  search:
+    if: ${{ github.event.repository.private == false && ((github.event_name == 'workflow_dispatch' && inputs.run_risk_study == true) || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'Authorize risk persistence diagnostic'))) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install pinned optional research dependencies
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install -r requirements-features.txt
+      - name: Validate risk causality and future-reservation guards on synthetic fixtures
+        run: .venv/bin/python -m unittest discover -s tests -p test_risk_forecast.py -v
+      - name: Obtain metadata for original pinned primary artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p data
+          gh api repos/joaquinignaciomondaca-code/Idea_3/actions/artifacts/12117929369 > data/risk_artifact_metadata.json
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: joaquinignaciomondaca-code/Idea_3
+          run-id: 39079361222
+          name: primary-BTCUSDT-39079361222-1
+          path: data/risk_primary_input
+      - name: Reaudit and run the fixed risk diagnostic twice
+        run: .venv/bin/python -m scripts.run_risk_study --package data/risk_primary_input --metadata data/risk_artifact_metadata.json
+      - name: Publish all all historical risk metrics; no forward activation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .venv/bin/python -m scripts.run_risk_study --publish
+      - name: Preserve complete noncommercial research records
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: risk-persistence-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            data/risk_study_run/
+            data/risk_artifact_metadata.json
+            data/risk_primary_input/data/primary_import/BINANCE_TERMS.md
+            data/risk_primary_input/data/primary_import/ATTRIBUTION.txt
+          if-no-files-found: warn
+          retention-days: 7
