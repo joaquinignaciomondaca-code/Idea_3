@@ -1,0 +1,29 @@
+{
+  "id": "NESTED-OPTUNA-PREDICTIVE-001",
+  "specified_on": "2026-10-17",
+  "scope": "Noncommercial retrospective nested temporal hyperparameter-selection diagnostic; no trading/PnL, no independent holdout claim",
+  "source": {"revision": "08eb12e0e22f32362383fb78bcbd34ab74b0eee7", "acquisition_run_id": 39079361222, "artifact_id": 12117929369, "artifact_name": "primary-BTCUSDT-39079361222-1", "artifact_digest": "sha256:af7208f3daaacc306b2e2d752bab6f4d1a47642555e423abdb82f87ec6f40278", "repository": "joaquinignaciomondaca-code/Idea_3", "origin": "https://data.binance.vision/", "license": "Binance Vision terms, CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only"},
+  "data_window": ["2022-01-01", "2026-09-26"],
+  "objective": "Minimize observation-weighted mean inner-validation log_loss over two chronological blocks. No outer score enters selection. Inner fold dispersion reported, not tuned or penalized with post-hoc lambdas.",
+  "outer_blocks": [
+    {"name": "outer_2023", "test": ["2023-01-01", "2023-12-31"], "inner": [["2022-07-01", "2022-09-30"], ["2022-10-01", "2022-12-30"]]},
+    {"name": "outer_2024", "test": ["2024-01-01", "2024-12-31"], "inner": [["2023-07-01", "2023-09-30"], ["2023-10-01", "2023-12-30"]]},
+    {"name": "outer_2025_2026", "test": ["2025-01-01", "2026-09-26"], "inner": [["2024-07-01", "2024-09-30"], ["2024-10-01", "2024-12-30"]]}
+  ],
+  "models": ["fixed", "adaptive"],
+  "trial_budget": {"total": 30, "per_model_per_outer_block": 5, "sampler": "Optuna 4.5.0 TPESampler, n_startup_trials=2, multivariate=False", "seed_base": 1701, "n_jobs": 1, "pruning": "none", "rerun": "repeat whole search with identical seeds and assert trial traces/selections/metrics equal; repeat is reproducibility, not additional searched candidates"},
+  "search_space": {"learning_rate": {"low": 0.001, "high": 0.05, "log": true}, "l2": {"low": 0.00001, "high": 0.1, "log": true}, "window": [90, 180, 365]},
+  "initial_training_epochs": 10,
+  "minimum_training_rows": 60,
+  "target_delay_sessions": 2,
+  "label": "1 iff actual daily Binance close[i+2] > open[i+2]; tie is not up",
+  "features": "Same frozen features as ONLINE-LOOP-001: intercept, clipped [-5,5] logreturn1*100, logreturn5*20, population std20 daily logreturns*100; no fitted preprocessing",
+  "fit": "At first forecast cutoff target_start-2, fit only feature rows j>=20 with j+2<=cutoff; take most recent W eligible rows, or all available if fewer; at least 60. Regularize non-intercept coefficients only. Full chronological training for 10 epochs.",
+  "adaptive": "After each scored forecast matures, one SGD update on current weights with its saved features and true label, same L2 and learning rate. No outer-driven hyperparameter updates. Initial training window does not imply periodic refitting.",
+  "fixed": "No updates after initial fit in each block",
+  "selection": "Five trials for each model in each outer block; lowest inner log_loss wins, ties earliest trial. Outer model fit resets at each block; no choosing between model families using outer scores.",
+  "controls": {"untuned_fixed_adaptive": {"learning_rate": 0.02, "l2": 0.0, "window": 365}, "others": ["constant_p0.5", "persistence last observed intraday label p0.55/p0.45"]},
+  "report": "All 30 trials, inner fold losses/effective training rows, selected config before each outer run, outer predictive scores and concatenated outer scores for all six predictors. Outer folds have differing lengths, pooled scores weighted by observations.",
+  "timing_gate": "For selection, pass only data through outer first forecast cutoff (test_start-2); inner target ends must not exceed it. Purge incomplete training labels in every fit. Real historical publication timestamps/vintages not verified.",
+  "caveats": ["All BTC history already inspected; outer means excluded from this optimization, not historically pristine holdout", "Five trials per study is a deliberately small pilot, not proof of global optimality or of Bayesian-search superiority", "Earlier primary replay used fixed training through 2022 and adaptive carry-through; new outer-reset untuned controls, not old scores, are the fair comparison", "No USD20 profitability, Sharpe, costs, trading thresholds, stops, population evolution, Laya or live trading"]
+}
