@@ -80,3 +80,7 @@ Usar varios indicadores no autoriza elegir después el que dé verde. Antes del 
 ## Qué se hizo en esta revisión
 
 Se contrastaron fuentes primarias/editoriales/de autores y documentación de métodos con los archivos locales `experiments/feature_ablation.json`, `microtrade/feature_study.py` y los agregados registrados. No se adquirieron nuevos datos de mercado, no se instalaron paquetes, no se ejecutaron otros fits, no se recalcularon resultados ni se cambió una métrica del protocolo cerrado. La auditoría numérica independiente y el siguiente experimento siguen pendientes.
+
+## Seguimiento posterior
+
+La auditoría independiente y una adaptación semanal acotada ya se ejecutaron posteriormente, sin alterar los resultados anteriores. El diseño previo, evidencia de falta de convergencia en diez épocas y resultados semanales con incertidumbre están en `16_auditoria_y_adaptacion_semanal.md` y `artifacts/numerical_review/informe.md`. Esta revisión inicial se conserva como registro del razonamiento anterior a esos cálculos.

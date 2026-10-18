@@ -1,0 +1,312 @@
+{
+  "code_sha256": {
+    "microtrade/feature_study.py": "2686c94e2faa6c4a23a36c04aab47add39fc48df993d767f00a51f96e08bdca6",
+    "microtrade/weekly_reference.py": "9f3f79b9f09dca93844032942f8c13c1d2e2b1f17a87400ed2a76aabddbf3d56",
+    "scripts/run_weekly_adaptation.py": "236a2c123f0eb93964daa467b3bdbf5d613a916df3220e33f587a6bf5c2321fe"
+  },
+  "costs_verified": false,
+  "data_rows": 1730,
+  "environment": {
+    "numpy": "2.2.6",
+    "python": "3.12.3"
+  },
+  "experiment_id": "WEEKLY-RETURN-ADAPTATION-001",
+  "extended_data_sha256": "e18108a6604c4682a1ac0a2423da881b2c4cb9ef36ca828178b46c855d2e48e6",
+  "full_result_sha256": "43a61d9bd1c1214a1aa4bb2cc240111486af9cb8f902c1b054ceb4e370876af7",
+  "market_run_enabled": false,
+  "passes": 2,
+  "reproduced": true,
+  "results": {
+    "blocks": [
+      {
+        "first_signal": "2024-01-07",
+        "last_signal": "2024-12-29",
+        "metrics": {
+          "historical_mean": {
+            "direction_accuracy": 0.5576923076923077,
+            "mae": 0.06302278755558068,
+            "mse": 0.00771816145510708,
+            "n": 52,
+            "r2_oos_vs_historical_mean": 0.0
+          },
+          "ols_momentum7": {
+            "direction_accuracy": 0.5,
+            "mae": 0.06262608266875319,
+            "mse": 0.007750651266191544,
+            "n": 52,
+            "r2_oos_vs_historical_mean": -0.00420952726545587
+          },
+          "ridge4": {
+            "direction_accuracy": 0.4807692307692308,
+            "mae": 0.06249385070853346,
+            "mse": 0.00766572376170419,
+            "n": 52,
+            "r2_oos_vs_historical_mean": 0.006794065362313972
+          },
+          "zero": {
+            "direction_accuracy": 0.4423076923076923,
+            "mae": 0.06325591225392031,
+            "mse": 0.007797154343889669,
+            "n": 52,
+            "r2_oos_vs_historical_mean": -0.010234676903567497
+          }
+        },
+        "year": 2024
+      },
+      {
+        "first_signal": "2025-01-05",
+        "last_signal": "2025-12-28",
+        "metrics": {
+          "historical_mean": {
+            "direction_accuracy": 0.4423076923076923,
+            "mae": 0.04315133237552301,
+            "mse": 0.0026893393318669907,
+            "n": 52,
+            "r2_oos_vs_historical_mean": 0.0
+          },
+          "ols_momentum7": {
+            "direction_accuracy": 0.4423076923076923,
+            "mae": 0.04326725802030907,
+            "mse": 0.002704476263557545,
+            "n": 52,
+            "r2_oos_vs_historical_mean": -0.005628494519524185
+          },
+          "ridge4": {
+            "direction_accuracy": 0.4423076923076923,
+            "mae": 0.04366752920095841,
+            "mse": 0.0027362191141230845,
+            "n": 52,
+            "r2_oos_vs_historical_mean": -0.01743170960265128
+          },
+          "zero": {
+            "direction_accuracy": 0.5576923076923077,
+            "mae": 0.04215966944293603,
+            "mse": 0.0026217480867680443,
+            "n": 52,
+            "r2_oos_vs_historical_mean": 0.025133029624797576
+          }
+        },
+        "year": 2025
+      },
+      {
+        "first_signal": "2026-01-04",
+        "last_signal": "2026-09-13",
+        "metrics": {
+          "historical_mean": {
+            "direction_accuracy": 0.4864864864864865,
+            "mae": 0.048961138708007605,
+            "mse": 0.004352736312159117,
+            "n": 37,
+            "r2_oos_vs_historical_mean": 0.0
+          },
+          "ols_momentum7": {
+            "direction_accuracy": 0.4864864864864865,
+            "mae": 0.04902679190672581,
+            "mse": 0.00435031284140837,
+            "n": 37,
+            "r2_oos_vs_historical_mean": 0.0005567694840546977
+          },
+          "ridge4": {
+            "direction_accuracy": 0.5405405405405406,
+            "mae": 0.04877891881211286,
+            "mse": 0.004343460697107866,
+            "n": 37,
+            "r2_oos_vs_historical_mean": 0.0021309848302413226
+          },
+          "zero": {
+            "direction_accuracy": 0.5135135135135135,
+            "mae": 0.048711763462773526,
+            "mse": 0.004317717030789939,
+            "n": 37,
+            "r2_oos_vs_historical_mean": 0.008045348685918441
+          }
+        },
+        "year": 2026
+      }
+    ],
+    "fits": [
+      {
+        "center": [
+          -0.0019547168624224247,
+          0.004674279710032323,
+          -0.020261093648964647,
+          0.02369415392064595
+        ],
+        "cutoff": "2024-01-07",
+        "last_training_target": "2024-01-01",
+        "ols_weights": [
+          0.0021036657752063702,
+          0.003907524646060465
+        ],
+        "ridge_normal_equation_error": 4.336808689942018e-19,
+        "ridge_weights": [
+          0.0026463628123200656,
+          0.0018406751517116402,
+          0.0009894794972926057,
+          0.0009732803639884424,
+          -0.002746379234615115
+        ],
+        "scale": [
+          0.061308849041737654,
+          0.22641512417965043,
+          0.33570525872645063,
+          0.013134258390440884
+        ],
+        "training_weeks": 92,
+        "year": 2024
+      },
+      {
+        "center": [
+          0.00031251720343238596,
+          0.01141225473117834,
+          0.04984062487473215,
+          0.02458334324889007
+        ],
+        "cutoff": "2025-01-05",
+        "last_training_target": "2024-12-30",
+        "ols_weights": [
+          0.007727114068214756,
+          0.002155327891261856
+        ],
+        "ridge_normal_equation_error": 0.0,
+        "ridge_weights": [
+          0.008280865129122779,
+          0.0004246649658170047,
+          0.0019631465226619864,
+          0.00045027961541036914,
+          -0.0043835130671395425
+        ],
+        "scale": [
+          0.06916439669045546,
+          0.18416685369694685,
+          0.40152538257129594,
+          0.011009512781994045
+        ],
+        "training_weeks": 144,
+        "year": 2025
+      },
+      {
+        "center": [
+          0.00010918463071416024,
+          0.00595468868378521,
+          0.04586635022745516,
+          0.023418845038581968
+        ],
+        "cutoff": "2026-01-04",
+        "last_training_target": "2025-12-29",
+        "ols_weights": [
+          0.005798456199027264,
+          0.0009000425533780397
+        ],
+        "ridge_normal_equation_error": 8.673617379884035e-19,
+        "ridge_weights": [
+          0.006018233442656079,
+          -0.00027111700557185176,
+          0.0024466832079006236,
+          0.0005225058830928645,
+          -0.0024861587084657293
+        ],
+        "scale": [
+          0.06996915513080246,
+          0.17086802254331945,
+          0.3764741552445958,
+          0.009828204450343003
+        ],
+        "training_weeks": 196,
+        "year": 2026
+      }
+    ],
+    "historically_pristine_holdout": false,
+    "model_fits_per_pass": 6,
+    "paired_loss_ci": {
+      "ols_momentum7": {
+        "12": {
+          "lower_95": -3.9420190942763186e-05,
+          "mean_loss_difference": 1.6928526287399333e-05,
+          "upper_95": 8.24895635456009e-05
+        },
+        "4": {
+          "lower_95": -3.578821267211894e-05,
+          "mean_loss_difference": 1.6928526287399333e-05,
+          "upper_95": 7.485595961828787e-05
+        }
+      },
+      "ridge4": {
+        "12": {
+          "lower_95": -7.118122011644499e-05,
+          "mean_loss_difference": -4.4837527413453884e-06,
+          "upper_95": 6.472027604890657e-05
+        },
+        "4": {
+          "lower_95": -7.752739317257346e-05,
+          "mean_loss_difference": -4.4837527413453884e-06,
+          "upper_95": 6.062521399313387e-05
+        }
+      },
+      "zero": {
+        "12": {
+          "lower_95": -0.00010387293076364569,
+          "mean_loss_difference": -4.9845953128384995e-06,
+          "upper_95": 9.464704668800935e-05
+        },
+        "4": {
+          "lower_95": -0.00011764909058754972,
+          "mean_loss_difference": -4.9845953128384995e-06,
+          "upper_95": 0.00010880263270086287
+        }
+      }
+    },
+    "pooled": {
+      "historical_mean": {
+        "direction_accuracy": 0.49645390070921985,
+        "mae": 0.05200437140860761,
+        "mse": 0.004980434641649213,
+        "n": 141,
+        "r2_oos_vs_historical_mean": 0.0
+      },
+      "ols_momentum7": {
+        "direction_accuracy": 0.475177304964539,
+        "mae": 0.05191804976156095,
+        "mse": 0.004997363167936612,
+        "n": 141,
+        "r2_oos_vs_historical_mean": -0.003399005810824862
+      },
+      "ridge4": {
+        "direction_accuracy": 0.48226950354609927,
+        "mae": 0.051951856392494715,
+        "mse": 0.004975950888907867,
+        "n": 141,
+        "r2_oos_vs_historical_mean": 0.0009002733825377307
+      },
+      "zero": {
+        "direction_accuracy": 0.5035460992907801,
+        "mae": 0.051659187917440785,
+        "mse": 0.004975450046336374,
+        "n": 141,
+        "r2_oos_vs_historical_mean": 0.0010008354032305933
+      }
+    },
+    "trading_backtest": false,
+    "winner_promoted": false
+  },
+  "source": {
+    "acquisition_run_id": 39079361222,
+    "artifact_digest": "sha256:af7208f3daaacc306b2e2d752bab6f4d1a47642555e423abdb82f87ec6f40278",
+    "artifact_id": 12117929369,
+    "artifact_name": "primary-BTCUSDT-39079361222-1",
+    "license": "Binance Vision terms, CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only",
+    "origin": "https://data.binance.vision/",
+    "repository": "joaquinignaciomondaca-code/Idea_3",
+    "revision": "08eb12e0e22f32362383fb78bcbd34ab74b0eee7"
+  },
+  "source_audit": {
+    "errors": [],
+    "expected_rows": 1730,
+    "extra_dates": [],
+    "missing_dates": [],
+    "observed_rows": 1730,
+    "valid_archives": 82
+  },
+  "spec_sha256": "217cb90540eb9aad493e75051d975da404efb7fb7471ff5f310a02ce1077f727",
+  "trading_backtest": false
+}

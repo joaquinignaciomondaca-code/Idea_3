@@ -62,3 +62,45 @@ Los intervalos son exploratorios: no corrigen multiplicidad/investigación previ
 - No adquirir otros datos ni recurrir a espejos si expiran los artifacts fijados. Recuperación autónoma de agregados por Checks API, sin descargas manuales para el usuario.
 
 Fuente y productos derivados: Binance Vision, https://data.binance.vision/, términos CC BY-NC-SA4.0 salvo designación distinta. Investigación no comercial, sin patrocinio/aprobación del proveedor. Informes derivados bajo CC BY-NC-SA4.0.
+
+## Resultado ejecutado y conservado
+
+- Preregistro y código productor: `049027a6c8a977645f9a6205173086145ce7013e`, publicados antes del cálculo.
+- Run: https://github.com/joaquinignaciomondaca-code/Idea_3/actions/runs/39083857802 . Job público estándar37segundos, 18-10-2026 00:44:11–00:44:48Z (17-10-2026 local).
+- Auditoría: Check117546323506, https://github.com/joaquinignaciomondaca-code/Idea_3/runs/117546323506 . Adaptación: Check117546326198, https://github.com/joaquinignaciomondaca-code/Idea_3/runs/117546326198 . Ambos github-actions, mismo head SHA.
+- Fuente:82 originales/1730días, reauditoría limpia, sin espejo. Los registros previos se descargaron dentro del runner y su hash coincidió con el agregado ya preservado. Los hashes locales del código productor de ambas tareas coinciden con los recibidos.
+
+### Auditoría: una limitación confirmada, no un bug de gradiente encontrado
+
+El error máximo del gradiente frente a diferencias finitas es1.361e-10; Newton y SciPy difieren en coeficientes como máximo3.553e-7. Se reconstruyeron los seis estados iniciales originales con error máximo2.776e-17. No se activó clipping>=35.
+
+**En los siete casos las diez épocas originales NO cumplían la tolerancia de convergencia declarada para la auditoría.** Las normas de gradiente en época10 van de0.007824 a0.086508. Los gaps del objetivo regularizado frente al óptimo de referencia van de0.000220 a0.043471. El mayor corresponde al primer ajuste interno, con88 ejemplos.
+
+Esto confirma falta de control de convergencia en el procedimiento anterior. No prueba una causa única de su bajo score externo: early stopping puede regularizar y minimizar mejor train puede empeorar la generalización. Las trayectorias a100/1000épocas reducen el gap, pero paso constante tampoco certifica la tolerancia. No se corrigen retrospectivamente los scores, se declara que diez épocas no deben interpretarse como la solución óptima del objetivo batch.
+
+### Adaptación semanal: resultados de los cuatro predictores
+
+141 etiquetas completas, distribuidas52/52/37 por año2024/2025/2026;92/144/196 semanas de train. Dos pasadas iguales en fits, pronósticos, métricas e intervalos. Ridge resuelve sus ecuaciones normales dentro de tolerancia; no depende de diez épocas SGD.
+
+| Predictor | MSE | R² OOS frente a media histórica |
+|---|---:|---:|
+| Media histórica | 0.004980435 | 0.0000% |
+| Retorno0 | **0.004975450** | +0.1001% |
+| OLS momentum7 | 0.004997363 | −0.3399% |
+| Ridge4 | 0.004975951 | +0.0900% |
+
+Ridge reduce apenas0.09% el MSE frente a media histórica; el trivial retorno0 es ligeramente mejor. **Es porcentaje de reducción del error, no rentabilidad.** La diferencia emparejada ridge−media es−0.00000448; sus intervalos exploratorios95% son aproximadamente[−0.00007753,+0.00006063] con bloques4 y[−0.00007118,+0.00006472] con bloques12. Ambos incluyen0. Los dos de OLS también incluyen0. No se establece ventaja sólida ni se escoge el período favorable: ridge mejora frente a media en2024/2026 pero empeora en2025.
+
+No se representa esta adaptación parcial como réplica confirmada del paper o reparación del log-loss diario. No se cambió el protocolo, alpha, horizonte o métrica después de observar estos datos. El histórico sigue siendo ya inspeccionado; intervalos no corrigen la búsqueda humana previa.
+
+### Entregables y recuperación
+
+- Informe combinado: `artifacts/numerical_review/informe.md`.
+- Controles y trayectorias completas: `artifacts/numerical_review/audit_summary.json`.
+- Coeficientes/escala de los fits, todas las métricas semanales, cohortes e intervalos: `artifacts/numerical_review/weekly_summary.json`.
+- Productor, revisión y hashes de los agregados: `artifacts/numerical_review/check_receipts.json`.
+- `python -m scripts.fetch_numerical_review` recupera ambos Checks y valida alcance, fuente, protocolo, controles numéricos, purga y agregación. No inicia nuevos cálculos.
+- Registros semanales completos en el artifact del run, retención7días; agregados preservados en Git. Términos/atribución acompañan al artifact.
+- **108 tests locales pasaron**, incluidos gradiente, normalización por media, intercepto, solver de referencia, fechas de ejecución/target, purga, invariancia a futuro, repetición y rechazo de recepción alterada. No son108 pruebas de ventaja financiera.
+
+Decisión: no promover un ganador ni seguir añadiendo indicadores sin hipótesis. El siguiente clasificador debe usar un solver controlado o early stopping justificado dentro de validación. Toda investigación nueva sigue siendo exploración hasta contrastarse con observaciones futuras reservadas; costos/filtros/fills deben verificarse antes de evaluar una política económica deUSD20.

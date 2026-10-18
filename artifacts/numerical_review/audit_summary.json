@@ -1,0 +1,411 @@
+{
+  "cases": [
+    {
+      "cutoff": "2022-12-30",
+      "epochs10_converged_at_gradient_1e7": false,
+      "gradient_fd_max_error": 6.690166476364112e-11,
+      "hessian_min_eigenvalue": 0.10451764613974934,
+      "last_training_label": "2022-12-30",
+      "maximum_abs_logit": 0.8175495328158998,
+      "name": "outer_2023/baseline3",
+      "newton_iterations": 3,
+      "newton_objective": 0.6793635814696833,
+      "parameters": 4,
+      "production_step_max_error": 6.106226635438361e-16,
+      "recorded_weight_max_error": 8.673617379884035e-19,
+      "rows": 272,
+      "scipy_gradient_inf": 9.740633701103146e-12,
+      "scipy_objective": 0.6793635814696832,
+      "scipy_success": true,
+      "solver_max_probability_difference": 3.6448399853838964e-11,
+      "solver_max_weight_difference": 8.611285295945237e-11,
+      "trajectory": [
+        {
+          "epochs": 0,
+          "gap_to_optimum": 0.013783599090261944,
+          "gradient_inf": 0.058823529411764705,
+          "objective": 0.6931471805599453
+        },
+        {
+          "epochs": 1,
+          "gap_to_optimum": 0.012302331311800807,
+          "gradient_inf": 0.055522942285508546,
+          "objective": 0.6916659127814841
+        },
+        {
+          "epochs": 10,
+          "gap_to_optimum": 0.0047452583069586,
+          "gradient_inf": 0.0328498497310778,
+          "objective": 0.6841088397766419
+        },
+        {
+          "epochs": 100,
+          "gap_to_optimum": 7.4559707826660215e-06,
+          "gradient_inf": 0.0012141309362483027,
+          "objective": 0.679371037440466
+        },
+        {
+          "epochs": 1000,
+          "gap_to_optimum": 1.094084389863248e-06,
+          "gradient_inf": 0.000796225837867938,
+          "objective": 0.6793646755540732
+        }
+      ]
+    },
+    {
+      "cutoff": "2022-12-30",
+      "epochs10_converged_at_gradient_1e7": false,
+      "gradient_fd_max_error": 1.1466677260485447e-10,
+      "hessian_min_eigenvalue": 0.010000032633763159,
+      "last_training_label": "2022-12-30",
+      "maximum_abs_logit": 2.1375200277381428,
+      "name": "outer_2023/all24",
+      "newton_iterations": 4,
+      "newton_objective": 0.6562952729239565,
+      "parameters": 25,
+      "production_step_max_error": 3.3306690738754696e-15,
+      "recorded_weight_max_error": 2.7755575615628914e-17,
+      "rows": 272,
+      "scipy_gradient_inf": 3.8809886220209956e-08,
+      "scipy_objective": 0.6562952729239628,
+      "scipy_success": true,
+      "solver_max_probability_difference": 2.6181999113195076e-07,
+      "solver_max_weight_difference": 2.2266594136566287e-07,
+      "trajectory": [
+        {
+          "epochs": 0,
+          "gap_to_optimum": 0.03685190763598878,
+          "gradient_inf": 0.059432751532207534,
+          "objective": 0.6931471805599453
+        },
+        {
+          "epochs": 1,
+          "gap_to_optimum": 0.031679188326778074,
+          "gradient_inf": 0.0548829377340006,
+          "objective": 0.6879744612507346
+        },
+        {
+          "epochs": 10,
+          "gap_to_optimum": 0.011819112280675004,
+          "gradient_inf": 0.027067734197223792,
+          "objective": 0.6681143852046315
+        },
+        {
+          "epochs": 100,
+          "gap_to_optimum": 0.0005569172127600774,
+          "gradient_inf": 0.003870567111457094,
+          "objective": 0.6568521901367166
+        },
+        {
+          "epochs": 1000,
+          "gap_to_optimum": 1.5535789687826096e-05,
+          "gradient_inf": 0.00153603914425904,
+          "objective": 0.6563108087136443
+        }
+      ]
+    },
+    {
+      "cutoff": "2023-12-30",
+      "epochs10_converged_at_gradient_1e7": false,
+      "gradient_fd_max_error": 1.2083343353674891e-10,
+      "hessian_min_eigenvalue": 0.13334347270990585,
+      "last_training_label": "2023-12-30",
+      "maximum_abs_logit": 0.21482994683411383,
+      "name": "outer_2024/baseline3",
+      "newton_iterations": 2,
+      "newton_objective": 0.6925362230087827,
+      "parameters": 4,
+      "production_step_max_error": 1.5265566588595902e-16,
+      "recorded_weight_max_error": 0.0,
+      "rows": 365,
+      "scipy_gradient_inf": 5.376673973666452e-10,
+      "scipy_objective": 0.6925362230087827,
+      "scipy_success": true,
+      "solver_max_probability_difference": 3.1291724211790495e-09,
+      "solver_max_weight_difference": 3.5107771689801837e-09,
+      "trajectory": [
+        {
+          "epochs": 0,
+          "gap_to_optimum": 0.0006109575511625831,
+          "gradient_inf": 0.012781516842887135,
+          "objective": 0.6931471805599453
+        },
+        {
+          "epochs": 1,
+          "gap_to_optimum": 0.0005483602246850738,
+          "gradient_inf": 0.012178523949120447,
+          "objective": 0.6930845832334678
+        },
+        {
+          "epochs": 10,
+          "gap_to_optimum": 0.00021989699844104926,
+          "gradient_inf": 0.00782408788131619,
+          "objective": 0.6927561200072238
+        },
+        {
+          "epochs": 100,
+          "gap_to_optimum": 2.2895141984502487e-06,
+          "gradient_inf": 0.0007547219640602242,
+          "objective": 0.6925385125229812
+        },
+        {
+          "epochs": 1000,
+          "gap_to_optimum": 1.9062037092121287e-06,
+          "gradient_inf": 0.0006908724513747075,
+          "objective": 0.6925381292124919
+        }
+      ]
+    },
+    {
+      "cutoff": "2023-12-30",
+      "epochs10_converged_at_gradient_1e7": false,
+      "gradient_fd_max_error": 1.3606175908176255e-10,
+      "hessian_min_eigenvalue": 0.010000021764465829,
+      "last_training_label": "2023-12-30",
+      "maximum_abs_logit": 1.4957445694103675,
+      "name": "outer_2024/all24",
+      "newton_iterations": 4,
+      "newton_objective": 0.676570681803024,
+      "parameters": 25,
+      "production_step_max_error": 3.958638972179074e-15,
+      "recorded_weight_max_error": 1.3877787807814457e-17,
+      "rows": 365,
+      "scipy_gradient_inf": 1.8773473201135968e-08,
+      "scipy_objective": 0.6765706818030287,
+      "scipy_success": true,
+      "solver_max_probability_difference": 8.758705982714332e-08,
+      "solver_max_weight_difference": 3.512354107559901e-07,
+      "trajectory": [
+        {
+          "epochs": 0,
+          "gap_to_optimum": 0.016576498756921243,
+          "gradient_inf": 0.08307660874521995,
+          "objective": 0.6931471805599453
+        },
+        {
+          "epochs": 1,
+          "gap_to_optimum": 0.013964658652707573,
+          "gradient_inf": 0.06155980886846429,
+          "objective": 0.6905353404557316
+        },
+        {
+          "epochs": 10,
+          "gap_to_optimum": 0.007717921166488395,
+          "gradient_inf": 0.015285808132901748,
+          "objective": 0.6842886029695124
+        },
+        {
+          "epochs": 100,
+          "gap_to_optimum": 0.0007187191652423541,
+          "gradient_inf": 0.005537449998201101,
+          "objective": 0.6772894009682664
+        },
+        {
+          "epochs": 1000,
+          "gap_to_optimum": 6.620316057481812e-05,
+          "gradient_inf": 0.0035740261856176125,
+          "objective": 0.6766368849635989
+        }
+      ]
+    },
+    {
+      "cutoff": "2024-12-30",
+      "epochs10_converged_at_gradient_1e7": false,
+      "gradient_fd_max_error": 5.435586009072679e-11,
+      "hessian_min_eigenvalue": 0.10924326506520513,
+      "last_training_label": "2024-12-30",
+      "maximum_abs_logit": 1.0619654274156731,
+      "name": "outer_2025_2026/baseline3",
+      "newton_iterations": 3,
+      "newton_objective": 0.6865591240424279,
+      "parameters": 4,
+      "production_step_max_error": 3.122502256758253e-16,
+      "recorded_weight_max_error": 1.3877787807814457e-17,
+      "rows": 365,
+      "scipy_gradient_inf": 5.496724521514132e-10,
+      "scipy_objective": 0.6865591240424279,
+      "scipy_success": true,
+      "solver_max_probability_difference": 1.4587617780392748e-09,
+      "solver_max_weight_difference": 2.1578121928156335e-09,
+      "trajectory": [
+        {
+          "epochs": 0,
+          "gap_to_optimum": 0.006588056517517371,
+          "gradient_inf": 0.03598342279580104,
+          "objective": 0.6931471805599453
+        },
+        {
+          "epochs": 1,
+          "gap_to_optimum": 0.005792897615329418,
+          "gradient_inf": 0.032718228560437664,
+          "objective": 0.6923520216577573
+        },
+        {
+          "epochs": 10,
+          "gap_to_optimum": 0.0021375231836756603,
+          "gradient_inf": 0.015054813099495447,
+          "objective": 0.6886966472261036
+        },
+        {
+          "epochs": 100,
+          "gap_to_optimum": 7.291713087775875e-07,
+          "gradient_inf": 0.0003526927947855086,
+          "objective": 0.6865598532137367
+        },
+        {
+          "epochs": 1000,
+          "gap_to_optimum": 3.2297019481042355e-07,
+          "gradient_inf": 0.00025917761143146663,
+          "objective": 0.6865594470126227
+        }
+      ]
+    },
+    {
+      "cutoff": "2024-12-30",
+      "epochs10_converged_at_gradient_1e7": false,
+      "gradient_fd_max_error": 8.65607932554191e-11,
+      "hessian_min_eigenvalue": 0.009999999999999329,
+      "last_training_label": "2024-12-30",
+      "maximum_abs_logit": 1.9259638137443027,
+      "name": "outer_2025_2026/all24",
+      "newton_iterations": 4,
+      "newton_objective": 0.670271067462624,
+      "parameters": 25,
+      "production_step_max_error": 4.853756285783106e-15,
+      "recorded_weight_max_error": 1.734723475976807e-17,
+      "rows": 365,
+      "scipy_gradient_inf": 2.6843091271034486e-08,
+      "scipy_objective": 0.6702710674626301,
+      "scipy_success": true,
+      "solver_max_probability_difference": 1.5932242658500684e-07,
+      "solver_max_weight_difference": 2.514493518540606e-07,
+      "trajectory": [
+        {
+          "epochs": 0,
+          "gap_to_optimum": 0.022876113097321293,
+          "gradient_inf": 0.05464524943064031,
+          "objective": 0.6931471805599453
+        },
+        {
+          "epochs": 1,
+          "gap_to_optimum": 0.01917036064340938,
+          "gradient_inf": 0.04724982737160478,
+          "objective": 0.6894414281060334
+        },
+        {
+          "epochs": 10,
+          "gap_to_optimum": 0.008399858073580901,
+          "gradient_inf": 0.015730774376583195,
+          "objective": 0.6786709255362049
+        },
+        {
+          "epochs": 100,
+          "gap_to_optimum": 0.0005983285265785954,
+          "gradient_inf": 0.0028979976871179175,
+          "objective": 0.6708693959892026
+        },
+        {
+          "epochs": 1000,
+          "gap_to_optimum": 1.6035807574810157e-05,
+          "gradient_inf": 0.002018739290871816,
+          "objective": 0.6702871032701988
+        }
+      ]
+    },
+    {
+      "cutoff": "2022-06-29",
+      "epochs10_converged_at_gradient_1e7": false,
+      "gradient_fd_max_error": 1.1073424122098885e-10,
+      "hessian_min_eigenvalue": 0.009995221769476434,
+      "last_training_label": "2022-06-29",
+      "maximum_abs_logit": 2.3021738354363896,
+      "name": "first_inner_2022/all24",
+      "newton_iterations": 4,
+      "newton_objective": 0.6280538498845091,
+      "parameters": 25,
+      "production_step_max_error": 4.052314039881821e-15,
+      "recorded_weight_max_error": null,
+      "rows": 88,
+      "scipy_gradient_inf": 5.354462552596001e-09,
+      "scipy_objective": 0.6280538498845113,
+      "scipy_success": true,
+      "solver_max_probability_difference": 6.549093356511548e-08,
+      "solver_max_weight_difference": 3.5534683534566014e-07,
+      "trajectory": [
+        {
+          "epochs": 0,
+          "gap_to_optimum": 0.06509333067543621,
+          "gradient_inf": 0.12094514341142738,
+          "objective": 0.6931471805599453
+        },
+        {
+          "epochs": 1,
+          "gap_to_optimum": 0.06217404231008106,
+          "gradient_inf": 0.11669816459760948,
+          "objective": 0.6902278921945901
+        },
+        {
+          "epochs": 10,
+          "gap_to_optimum": 0.043471087001564546,
+          "gradient_inf": 0.08650832104016476,
+          "objective": 0.6715249368860736
+        },
+        {
+          "epochs": 100,
+          "gap_to_optimum": 0.00919218019489354,
+          "gradient_inf": 0.014820674498042877,
+          "objective": 0.6372460300794026
+        },
+        {
+          "epochs": 1000,
+          "gap_to_optimum": 0.0004977082564390223,
+          "gradient_inf": 0.002460614716164662,
+          "objective": 0.6285515581409481
+        }
+      ]
+    }
+  ],
+  "code_sha256": {
+    "microtrade/feature_study.py": "2686c94e2faa6c4a23a36c04aab47add39fc48df993d767f00a51f96e08bdca6",
+    "microtrade/numerical_audit.py": "87e972658a48e26d33d2027ad450662bf509792619bcce7623e4f9d986e2a4bc",
+    "scripts/run_numerical_audit.py": "64dd2a4b093c2542845efdc13103f1d892d9b597e8e5c6ba352154deb702fe96"
+  },
+  "data_rows": 1730,
+  "environment": {
+    "numpy": "2.2.6",
+    "python": "3.12.3",
+    "scipy": "1.15.3"
+  },
+  "experiment_id": "NUMERICAL-AUDIT-001",
+  "external_scores_recomputed": false,
+  "market_run_enabled": false,
+  "prior_artifact": {
+    "acquisition_run_id": 39082812342,
+    "artifact_digest": "sha256:80bf7e29272b1e31d942ec8bcc1a75f088dfca3cae064efc8416660d252d630e",
+    "artifact_id": 12119213800,
+    "artifact_name": "feature-ablation-39082812342-1",
+    "repository": "joaquinignaciomondaca-code/Idea_3",
+    "revision": "02a5f9c696f299cdf9e101f0ef25b54c6b80c3fc"
+  },
+  "source": {
+    "acquisition_run_id": 39079361222,
+    "artifact_digest": "sha256:af7208f3daaacc306b2e2d752bab6f4d1a47642555e423abdb82f87ec6f40278",
+    "artifact_id": 12117929369,
+    "artifact_name": "primary-BTCUSDT-39079361222-1",
+    "license": "Binance Vision terms, CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only",
+    "origin": "https://data.binance.vision/",
+    "repository": "joaquinignaciomondaca-code/Idea_3",
+    "revision": "08eb12e0e22f32362383fb78bcbd34ab74b0eee7"
+  },
+  "source_audit": {
+    "errors": [],
+    "expected_rows": 1730,
+    "extra_dates": [],
+    "missing_dates": [],
+    "observed_rows": 1730,
+    "valid_archives": 82
+  },
+  "spec_sha256": "71dd0e8662c9c46274a351e5d1f1a73c349fe2563e4f8dce36c0b774161c8ee1",
+  "trading_backtest": false,
+  "training_only": true
+}
