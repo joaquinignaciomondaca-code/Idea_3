@@ -1,0 +1,2 @@
+# Optional, CPU-only noncommercial feature diagnostics.
+numpy==2.2.6

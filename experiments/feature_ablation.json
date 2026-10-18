@@ -1,0 +1,151 @@
+{
+  "id": "FEATURE-ABLATION-001",
+  "specified_on": "2026-10-17",
+  "scope": "Noncommercial retrospective diagnostic; not pristine holdout, causal inference or trading approval",
+  "source": {
+    "revision": "08eb12e0e22f32362383fb78bcbd34ab74b0eee7",
+    "acquisition_run_id": 39079361222,
+    "artifact_id": 12117929369,
+    "artifact_name": "primary-BTCUSDT-39079361222-1",
+    "artifact_digest": "sha256:af7208f3daaacc306b2e2d752bab6f4d1a47642555e423abdb82f87ec6f40278",
+    "repository": "joaquinignaciomondaca-code/Idea_3",
+    "origin": "https://data.binance.vision/",
+    "license": "Binance Vision terms, CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only"
+  },
+  "data_window": [
+    "2022-01-01",
+    "2026-09-26"
+  ],
+  "outer_blocks": [
+    {
+      "name": "outer_2023",
+      "test": [
+        "2023-01-01",
+        "2023-12-31"
+      ],
+      "inner": [
+        [
+          "2022-07-01",
+          "2022-09-30"
+        ],
+        [
+          "2022-10-01",
+          "2022-12-30"
+        ]
+      ]
+    },
+    {
+      "name": "outer_2024",
+      "test": [
+        "2024-01-01",
+        "2024-12-31"
+      ],
+      "inner": [
+        [
+          "2023-07-01",
+          "2023-09-30"
+        ],
+        [
+          "2023-10-01",
+          "2023-12-30"
+        ]
+      ]
+    },
+    {
+      "name": "outer_2025_2026",
+      "test": [
+        "2025-01-01",
+        "2026-09-26"
+      ],
+      "inner": [
+        [
+          "2024-07-01",
+          "2024-09-30"
+        ],
+        [
+          "2024-10-01",
+          "2024-12-30"
+        ]
+      ]
+    }
+  ],
+  "features": {
+    "trend": [
+      "return_1",
+      "return_5",
+      "return_10",
+      "return_20",
+      "return_60",
+      "return_90"
+    ],
+    "volatility": [
+      "vol_5",
+      "vol_20",
+      "vol_60",
+      "range_log",
+      "atr_20",
+      "downside_20"
+    ],
+    "activity": [
+      "volume_relative_20",
+      "quote_relative_20",
+      "trades_relative_20",
+      "trade_size_relative_20",
+      "taker_imbalance",
+      "illiquidity_proxy"
+    ],
+    "candles": [
+      "intraday_return",
+      "upper_wick",
+      "lower_wick",
+      "open_gap",
+      "up_fraction_20",
+      "close_position_20"
+    ]
+  },
+  "warmup": 90,
+  "learning_rate": 0.001,
+  "l2": 0.01,
+  "epochs": 10,
+  "training_window": 365,
+  "minimum_training_rows": 60,
+  "max_selected_features": 6,
+  "max_fits_per_pass": 390,
+  "passes": 2,
+  "hpo_trials": 0,
+  "label": "close[i+2]>open[i+2], ties not up",
+  "scaler": "Per-fit median/IQR trained only on eligible training feature rows; zero IQR replaced by 1; clip [-5,5]; prepend intercept. Scaler frozen during block. No regularization on intercept.",
+  "training": "Eligible feature rows j>=90 and j+2<=first_forecast_cutoff; last 365 available, minimum60. Reset each fit. Fixed/adaptive same initial fit; adaptive SGD update only after scored prediction matures.",
+  "importance": "Ablation with full retraining: validation log_loss_without minus log_loss_all24. Positive means removing this feature/family hurt this learning recipe. Not causal, coefficients, SHAP or percentage contributions.",
+  "selection": "Using ONLY the two inner validations, retain up to 6 individual features whose ablation loss difference is positive in BOTH inner folds; order by observation-weighted delta descending, then alphabetical. If none qualify use intercept-only. Freeze both modes before outer scores. No iterative elimination, no post-hoc threshold changes.",
+  "outer_models": [
+    "all24",
+    "baseline3",
+    "selected_inner",
+    "without_trend",
+    "without_volatility",
+    "without_activity",
+    "without_candles"
+  ],
+  "baseline3": [
+    "return_1",
+    "return_5",
+    "vol_20"
+  ],
+  "controls": [
+    "constant_p0_5",
+    "persistence_0.55_0.45"
+  ],
+  "budget": "Per pass: 3 blocks x 2 modes x (2 full inner fits + 24x2 individual ablations + 4x2 family ablations + 7 outer fits)=390 fits. Two passes=780 fits. No HPO, pruning or seed search. Not 30 trials; separate experiment.",
+  "report": "All 24 individual and 4 family internal ablations per mode/block; all external models and controls, no selecting winner using outer. External family ablations diagnostic only, not feature selection. Pooled by observations, not unweighted block mean.",
+  "caveats": [
+    "Data/history already inspected; retrospective exclusion is not a clean prospective holdout",
+    "Fixed training recipe is a new declared choice informed by prior research, not a proved optimum",
+    "390 fits per pass is the entire prescribed ablation grid, not 390 tuned parameter candidates",
+    "Correlated variables can substitute; importance is conditional on recipe, other columns and period",
+    "More columns may worsen predictions; low importance in a weak model does not rule out useful information in a better model",
+    "Same warmup, scaler, window and learning recipe for baseline3 and all24; do not compare directly with prior replay scores",
+    "No order-book spread or executable liquidity measured; activity and illiquidity are candle-derived proxies",
+    "No PnL, Sharpe, costs, Laya, evolution, live orders or paid inference"
+  ]
+}
