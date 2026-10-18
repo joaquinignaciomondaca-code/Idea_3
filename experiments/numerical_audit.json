@@ -1,0 +1,53 @@
+{
+  "id": "NUMERICAL-AUDIT-001",
+  "specified_on": "2026-10-17",
+  "scope": "Train-only numerical audit, no new external forecasting metric and no HPO",
+  "source": {
+    "revision": "08eb12e0e22f32362383fb78bcbd34ab74b0eee7",
+    "acquisition_run_id": 39079361222,
+    "artifact_id": 12117929369,
+    "artifact_name": "primary-BTCUSDT-39079361222-1",
+    "artifact_digest": "sha256:af7208f3daaacc306b2e2d752bab6f4d1a47642555e423abdb82f87ec6f40278",
+    "repository": "joaquinignaciomondaca-code/Idea_3",
+    "origin": "https://data.binance.vision/",
+    "license": "Binance Vision terms, CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only"
+  },
+  "prior_artifact": {
+    "repository": "joaquinignaciomondaca-code/Idea_3",
+    "revision": "02a5f9c696f299cdf9e101f0ef25b54c6b80c3fc",
+    "acquisition_run_id": 39082812342,
+    "artifact_id": 12119213800,
+    "artifact_name": "feature-ablation-39082812342-1",
+    "artifact_digest": "sha256:80bf7e29272b1e31d942ec8bcc1a75f088dfca3cae064efc8416660d252d630e"
+  },
+  "feature_spec_sha256": "f05dd75d9d1096f08db9606fc7d7cca819e183299795e412685387d26a5f04ca",
+  "cases": "Six original outer initial fits: baseline3/all24 for 2023,2024,2025; plus all24 first inner cutoff June29 2022 (88 examples). Only training labels are used. Fixed/adaptive share initial fit.",
+  "objective": "mean(logaddexp(0,Xw)-y*Xw) + 0.5*l2*sum(w[1:]**2). Intercept unpenalized. Must not confuse loss sum vs mean or C with l2.",
+  "methods": [
+    "central finite differences epsilon1e-6 vs analytic gradient",
+    "average gradient from production steps vs analytic batch gradient",
+    "independent Newton/Armijo (max100 iterations, gradient_inf<1e-10)",
+    "SciPy1.15.3 L-BFGS-B with independent log_expit objective and numerical 3-point derivatives, max2000 iterations",
+    "chronological production SGD trajectory: epochs0,1,10,100,1000; no external scoring, no selecting epoch via outcomes"
+  ],
+  "case_count": 7,
+  "maximum_sgd_epochs_per_case": 1000,
+  "tolerances": {
+    "finite_difference": 2e-07,
+    "production_step": 2e-10,
+    "objective_agreement": 1e-09,
+    "weight_agreement": 0.0001,
+    "probability_agreement": 1e-05,
+    "scipy_gradient_inf": 1e-07,
+    "recorded_weights": 1e-10
+  },
+  "gates": [
+    "abort on solver disagreement, changed prior results/data/spec, clipping >=35, missing originals or expired artifact",
+    "epochs10 need not converge: nonconvergence is a diagnostic result, not failed code or proof of causal explanation for test performance"
+  ],
+  "caveats": [
+    "Not new market evidence, not code correctness proof, not PnL",
+    "Converging train objective does not guarantee future generalization",
+    "No retuning or rescoring frozen external experiments"
+  ]
+}

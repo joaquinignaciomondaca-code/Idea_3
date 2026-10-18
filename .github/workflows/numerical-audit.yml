@@ -1,0 +1,94 @@
+name: Numerical training audit
+on:
+  push:
+    branches: ['arena/214e9ea3-idea-3']
+    paths:
+      - '.github/workflows/numerical-audit.yml'
+      - 'experiments/numerical_audit.json'
+      - 'requirements-audit.txt'
+      - 'microtrade/numerical_audit.py'
+      - 'scripts/run_numerical_audit.py'
+      - 'scripts/publish_numerical_check.py'
+      - 'tests/test_numerical_audit.py'
+      - 'tests/test_weekly_adaptation.py'
+      - 'experiments/weekly_return_adaptation.json'
+      - 'microtrade/weekly_reference.py'
+      - 'scripts/run_weekly_adaptation.py'
+  workflow_dispatch:
+    inputs:
+      run_numerical_audit:
+        description: 'Run bounded noncommercial training numerical audit, public repo only'
+        type: boolean
+        required: true
+        default: false
+permissions:
+  contents: read
+  actions: read
+  checks: write
+concurrency:
+  group: numerical-training-audit
+  cancel-in-progress: false
+jobs:
+  search:
+    if: ${{ github.event.repository.private == false && ((github.event_name == 'workflow_dispatch' && inputs.run_numerical_audit == true) || (github.event_name == 'push' && startsWith(github.event.head_commit.message, 'Authorize numerical training audit'))) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      OPENBLAS_NUM_THREADS: '1'
+      OMP_NUM_THREADS: '1'
+      PYTHONHASHSEED: '0'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install pinned optional research dependencies
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install -r requirements-audit.txt
+      - name: Validate gradients and independent solvers on synthetic fixtures
+        run: |
+          .venv/bin/python -m unittest discover -s tests -p test_numerical_audit.py -v
+          .venv/bin/python -m unittest discover -s tests -p test_weekly_adaptation.py -v
+      - name: Obtain metadata for original pinned primary artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p data
+          gh api repos/joaquinignaciomondaca-code/Idea_3/actions/artifacts/12117929369 > data/audit_artifact_metadata.json
+          gh api repos/joaquinignaciomondaca-code/Idea_3/actions/artifacts/12119213800 > data/audit_prior_metadata.json
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: joaquinignaciomondaca-code/Idea_3
+          run-id: 39079361222
+          name: primary-BTCUSDT-39079361222-1
+          path: data/audit_primary_input
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          repository: joaquinignaciomondaca-code/Idea_3
+          run-id: 39082812342
+          name: feature-ablation-39082812342-1
+          path: data/audit_prior_input
+      - name: Reaudit and run the seven train-only numerical cases
+        run: .venv/bin/python -m scripts.run_numerical_audit --package data/audit_primary_input --metadata data/audit_artifact_metadata.json --previous data/audit_prior_input --prior-metadata data/audit_prior_metadata.json
+      - name: Run the separate preregistered weekly adaptation twice
+        run: .venv/bin/python -m scripts.run_weekly_adaptation --package data/audit_primary_input --metadata data/audit_artifact_metadata.json
+      - name: Publish numerical checks and convergence diagnostics
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: .venv/bin/python -m scripts.publish_numerical_check
+      - name: Preserve complete noncommercial research records
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: numerical-audit-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            data/numerical_audit_run/
+            data/weekly_adaptation_run/
+            data/audit_artifact_metadata.json
+            data/audit_prior_metadata.json
+            data/audit_primary_input/data/primary_import/BINANCE_TERMS.md
+            data/audit_primary_input/data/primary_import/ATTRIBUTION.txt
+          if-no-files-found: warn
+          retention-days: 7

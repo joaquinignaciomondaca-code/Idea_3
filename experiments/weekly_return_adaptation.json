@@ -1,0 +1,60 @@
+{
+  "id": "WEEKLY-RETURN-ADAPTATION-001",
+  "specified_on": "2026-10-17",
+  "scope": "Retrospective partial adaptation of weekly time-series momentum, NOT exact replication, NOT trading/PnL",
+  "source": {
+    "revision": "08eb12e0e22f32362383fb78bcbd34ab74b0eee7",
+    "acquisition_run_id": 39079361222,
+    "artifact_id": 12117929369,
+    "artifact_name": "primary-BTCUSDT-39079361222-1",
+    "artifact_digest": "sha256:af7208f3daaacc306b2e2d752bab6f4d1a47642555e423abdb82f87ec6f40278",
+    "repository": "joaquinignaciomondaca-code/Idea_3",
+    "origin": "https://data.binance.vision/",
+    "license": "Binance Vision terms, CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only"
+  },
+  "data_window": [
+    "2022-01-01",
+    "2026-09-26"
+  ],
+  "literature": "Liu/Tsyvinski, Risks and Returns of Cryptocurrency, NBER working paper24877 (2018), weekly momentum component only, not attention/network factors nor published performance replication",
+  "signal": "Every Sunday after UTC session close, with at least84 daily returns available",
+  "target": "close[t+8]/open[t+2]-1, seven-session Tuesday-through-Monday holding-price benchmark, after a full intervening day. Price benchmark NOT a guaranteed fill. BTCUSDT return, not exact USD return or excess return.",
+  "features": [
+    "logreturn7",
+    "logreturn28",
+    "logreturn84",
+    "population_std28_daily_logreturns"
+  ],
+  "outer_years": [
+    2024,
+    2025,
+    2026
+  ],
+  "split": "Assign by Sunday signal year. All completed targets by final dataset date only. Reset/freeze each model at first Sunday of each outer year; expanding train from available prior weekly examples with target_end<=first_signal_cutoff. No tuning/inner selection.",
+  "minimum_training_weeks": 60,
+  "models": [
+    "zero",
+    "historical_mean",
+    "ols_momentum7",
+    "ridge4"
+  ],
+  "ridge_alpha": 1,
+  "objective": "Ridge mean squared error + alpha*sum(nonintercept_weights**2); solve normal equations with XTX/n+alpha*diag(0,1,...). OLS intercept+momentum7 via lstsq. No SGD, gradient iterations, C mapping or hyperparameter search.",
+  "preprocessing": "Per-fit median/IQR on mature training examples only; zero IQR->1; clip [-5,5]. Freeze during outer year. OLS uses the same intercept and scaled momentum7 column as ridge.",
+  "primary_metric": "MSE; report R2_OOS=1-MSE_model/MSE_historical_mean, pooled with observation weights. Baseline mean estimated on that block train only.",
+  "secondary_metrics": [
+    "MAE",
+    "direction_accuracy with threshold0 fixed",
+    "all cohorts and all models, not selecting favorable one"
+  ],
+  "uncertainty": "Exploratory paired loss(model)-loss(historical_mean) circular moving-block bootstrap within each year, fixed lengths4 and12weeks,2000 replicates,seed1701, percentile95intervals. Negative favors model. Not multiplicity-adjusted or correction for previously inspected data. Both lengths reported, no favorable interval selection.",
+  "budget": "Six model fits per pass (OLS+ridge x3years), plus three historical means and zero constant. Two identical complete passes=12 model fits. No HPO or search for seed, horizon, universe, alpha or threshold.",
+  "caveats": [
+    "Different task/metric from closed intraday probability experiment; cannot present this as improvement of its log-loss",
+    "Original study period/assets/data, label, estimators and factors not reproduced; call partial adaptation only",
+    "Weekly sample small and not independent merely because target intervals do not overlap; no pristine holdout",
+    "Source onlyBTC currently; no claim representative of all markets or microcoins",
+    "No costs/filters/latency/fill availability verified. No net PnL, Sharpe, shorts, population, Laya, live orders or paid inference",
+    "No choosing winner based on external metrics or intervals; confirmation needs truly future observations"
+  ]
+}
