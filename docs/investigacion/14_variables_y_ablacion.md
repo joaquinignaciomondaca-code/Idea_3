@@ -58,3 +58,39 @@ Se conservarán todos los rankings internos, subconjuntos elegidos, resultados e
 El histórico ya estaba inspeccionado: esta exclusión temporal no es un holdout virgen. Las señales correlacionadas pueden sustituirse. Una importancia pequeña en un modelo malo no prueba que la información sea inútil con otros modelos. No se estiman p-values ni se tratan folds/modos como réplicas independientes. No hay PnL de USD20, Sharpe, órdenes, costos verificados, Laya ni evolución.
 
 Datos y productos derivados: Binance Vision, https://data.binance.vision/, términos CC BY-NC-SA4.0 salvo designación distinta; solo investigación no comercial. Términos/atribución acompañan al artifact, siete días de retención para registros completos y agregados preservados en Git. Sin aval del proveedor.
+
+## Resultado ejecutado — agregado recuperado sin repetir la búsqueda
+
+- Preregistro/código: commit `02a5f9c696f299cdf9e101f0ef25b54c6b80c3fc`, publicado antes del cálculo.
+- Workflow: https://github.com/joaquinignaciomondaca-code/Idea_3/actions/runs/39082812342 . Job público estándar, 28segundos; 18-10-2026 00:27:24–00:27:52Z (17-10-2026 local).
+- Check: https://github.com/joaquinignaciomondaca-code/Idea_3/runs/117543202074 , github-actions, mismo head SHA.
+- Reauditoría limpia: 82 archivos originales y 1.730 días; se validaron campos adicionales de actividad. NumPy2.2.6/Python3.12.3. Código local coincide con los hashes de ejecución publicados.
+- Dos pasadas reprodujeron los 390 fits prescritos, importancias, selecciones, escalas, pesos iniciales y todos los pronósticos externos. No hay nuevos trials de Optuna.
+
+### Prueba externa concatenada, 1.365 etiquetas por predictor
+
+| Modelo | Tres señales | Las24 | Selección interna ≤6 |
+|---|---:|---:|---:|
+| Fijo, log-loss | 0.695442 | 0.704838 | 0.696032 |
+| Adaptativo, log-loss | 0.695360 | 0.701650 | 0.696724 |
+
+Referencia p=0.5: **0.693147**. Menor es mejor. Añadir las24 empeoró el agregado en ambos modos. Seleccionar internamente redujo el deterioro respecto del conjunto completo, pero no venció al control de tres señales ni a p=0.5. No se ha demostrado utilidad predictiva con esta receta. La selección fija logró 50.70% de acierto, pero su log-loss/Brier fueron peores que los controles: el acierto aislado no cambia la conclusión probabilística ni demuestra rentabilidad.
+
+### Qué señales aparecieron mejor posicionadas
+
+En el promedio descriptivo de las validaciones internas, para ambos modos destacan posición del cierre en el rango20, proporción de velas alcistas20 y retorno10. Sus deltas NO son porcentajes de predicción. Por ejemplo, en fijo la posición del cierre aporta un delta interno medio +0.000680 y cumple el criterio positivo en ambos folds en dos de tres bloques; en adaptativo +0.000773 y uno de tres. Eso describe inestabilidad y dependencia del modelo, no una señal universal.
+
+Antes del test2024 **ninguna** variable cumple el requisito de mejora en ambos folds: ambos subconjuntos se reducen a solo intercepto. Se conservó este resultado. En otros bloques cambian las listas y sus tamaños. Algunos predictores son redundantes, como retorno1/intraday return cuando open se parece mucho al close previo; no deben contarse como evidencia independiente.
+
+En ablaciones externas, quitar actividad, tendencia o forma de velas mejora el log-loss agregado frente a las24. Quitar volatilidad lo empeora levemente (+0.000466 fijo/+0.000101 adaptativo). Ni siquiera estos modelos reentrenados vencen a p=0.5. Estos diagnósticos no se usan para seleccionar otra configuración retroactivamente y no prueban que esas familias carezcan de información con otros métodos, escalas u horizontes.
+
+### Entregables y validación
+
+- `artifacts/feature_ablation/informe.md`: rankings de las24 por ambos modos, subconjuntos por bloque, ablaciones familiares y todos los resultados externos.
+- `artifacts/feature_ablation/summary.json`: las168 ablaciones internas (24+4 por modo/bloque), sus diferencias por fold, métricas externas y hashes; sin eliminar resultados desfavorables.
+- `artifacts/feature_ablation/check_receipt.json`: productor, revisión, Check y hash del agregado.
+- `python -m scripts.fetch_feature_result`: recupera lo ya calculado por API; no inicia nuevos fits. Valida protocolo/fuente, productor/revisión/workflow, cobertura, agregación y regla de selección interna.
+- Los registros externos completos, escalas y pesos iniciales están en el artifact de este workflow, con retención7días; los agregados permanecen en Git.
+- **97 tests locales pasaron**: causalidad de features/pesos/scaler, modificación futura sin cambiar selección pasada, dataset ficticio con campos ampliados, presupuesto, repetibilidad y rechazo de recepción alterada. Los tests sintéticos no son evidencia de mercado.
+
+No se modifica el protocolo congelado ni se amplía automáticamente la búsqueda. El histórico continúa siendo retrospectivo/ya inspeccionado. No se promueve una configuración para operar ni se infiere PnL de USD20. La siguiente investigación debe distinguir entre fallas de esta receta y ausencia real de información, y reservar observaciones futuras para confirmación; agregar más indicadores a ciegas no resuelve esa diferencia.
