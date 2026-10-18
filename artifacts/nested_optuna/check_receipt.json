@@ -1,0 +1,13 @@
+{
+  "id": 117538740045,
+  "name": "Nested Optuna predictive \u2014 aggregate report",
+  "head_sha": "df5658a493e1224426dcf62af3d77956658bf53f",
+  "conclusion": "success",
+  "html_url": "https://github.com/joaquinignaciomondaca-code/Idea_3/runs/117538740045",
+  "started_at": "2026-10-18T00:03:32Z",
+  "completed_at": "2026-10-18T00:03:32Z",
+  "run_id": 39081333060,
+  "run_url": "https://github.com/joaquinignaciomondaca-code/Idea_3/actions/runs/39081333060",
+  "app": "github-actions",
+  "summary_sha256": "b621abba3670916ec037e7f8e85c053c17eafb8a8204c1dffade715dc57d63e8"
+}
