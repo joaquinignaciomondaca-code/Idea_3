@@ -104,3 +104,7 @@ No se representa esta adaptación parcial como réplica confirmada del paper o r
 - **108 tests locales pasaron**, incluidos gradiente, normalización por media, intercepto, solver de referencia, fechas de ejecución/target, purga, invariancia a futuro, repetición y rechazo de recepción alterada. No son108 pruebas de ventaja financiera.
 
 Decisión: no promover un ganador ni seguir añadiendo indicadores sin hipótesis. El siguiente clasificador debe usar un solver controlado o early stopping justificado dentro de validación. Toda investigación nueva sigue siendo exploración hasta contrastarse con observaciones futuras reservadas; costos/filtros/fills deben verificarse antes de evaluar una política económica deUSD20.
+
+## Seguimiento posterior: comparación controlada del clasificador
+
+La comparación propuesta ya se ejecutó por separado: `17_clasificador_con_convergencia.md`. Se mantuvieron datos/tarea/features, se reprodujo SGD10 y se verificaron fits convergidos con L2 fija y seleccionada solo internamente. Converger mejor train empeoró los externos en esta receta; no se rescatan los scores anteriores ni se presenta la auditoría como solución financiera.

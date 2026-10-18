@@ -39,3 +39,36 @@ El BTC histórico ya fue inspeccionado. Esto es exclusión temporal algorítmica
 Protocolo: `experiments/converged_classifier.json`. Código nuevo: `microtrade/converged_classifier.py`. Runner: `scripts/run_converged_classifier.py`. Workflow público estándar con límite10minutos; dependencias CPU fijadas en `requirements-audit.txt`. Resultados completos en artifact con retención7días, agregados en Git y Checks API. Si expira el original, fallar sin sustituirlo.
 
 Binance Vision, https://data.binance.vision/: términos CC BY-NC-SA4.0 salvo designación distinta, solo investigación no comercial. Informes derivados bajo CC BY-NC-SA4.0. Términos/atribución acompañan al artifact; no hay aprobación del proveedor.
+
+## Resultado ejecutado
+
+- Código/protocolo publicados antes del cálculo: `71cacc7746c55b439e3826233997a6ba577eef09`.
+- Run público estándar: https://github.com/joaquinignaciomondaca-code/Idea_3/actions/runs/39084945583 , job25segundos. Check117549500773: https://github.com/joaquinignaciomondaca-code/Idea_3/runs/117549500773 , github-actions, mismo head SHA.
+- Originales reauditorados:82 archivos/1730días, sin errores/huecos ni espejo. Dataset extendido idéntico al anterior. Los dos controles SGD10 reproducen sus métricas dentro de1e-12; los archivos anteriores NO se cambian.
+- Los12 fits externos batch de cada pasada convergieron y pasaron la comparación con SciPy. Máxima norma final de gradiente3.896e-9. Dos pasadas idénticas en coeficientes/escalas,18 candidatos, selecciones, pronósticos, métricas e intervalos;108fits más24 verificaciones independientes.
+
+### Misma tarea, mismas features, 1.365 etiquetas externas por predictor
+
+| Features | SGD10 anterior | Batch misma L2=0.01 | Batch L2 elegida en validación interna |
+|---|---:|---:|---:|
+| baseline3, log-loss | 0.695442 | 0.702143 | 0.701299 |
+| all24, log-loss | 0.704838 | 0.745267 | 0.721036 |
+
+Menor es mejor. Controles adicionales: p=0.5 obtiene0.693147; prior histórico0.695841; persistencia0.698834. Los dos modelos selected quedan por debajo de ambos baselines probabilísticos. Brier confirma el deterioro: baseline3 selected0.253992 y all24 selected0.262920, frente a0.25 constante.
+
+**Resolver mejor train empeoró el log-loss externo con la misma L2 en ambos conjuntos**: cambio+0.006702 baseline3 y+0.040429 all24. Esto es compatible con regularización implícita por entrenamiento limitado en la receta anterior. No demuestra que early stopping siempre sea superior, ni que el entrenamiento estuviera aritméticamente equivocado; sí descarta atribuir a falta de convergencia, por sí sola, la explicación de malos pronósticos en este diagnóstico.
+
+L2 elegida:2023 baseline3/all24=0.1/0.1;2024=0.1/0.1;2025–2026=0.001/0.01. Se mantienen estas decisiones aunque el test no resulte favorable. No se amplía el grid después de ver elecciones en el extremo.
+
+Los intervalos exploratorios selected−SGD10,selected−p0.5 y selected−prior son positivos con ambos largos de bloque en ambos conjuntos, favoreciendo a las referencias. Por ejemplo selected baseline3−p0.5 tiene delta+0.008152 e IC95%[+0.002768,+0.013604] con14días; all24−p0.5 delta+0.027889 e IC95%[+0.017135,+0.038684]. Se publican también60días y todas las demás comparaciones. No se declaran pruebas confirmatorias ajustadas por multiplicidad o investigación previa.
+
+### Entregables
+
+- `artifacts/converged_classifier/informe.md`: nueve predictores, ambos efectos del optimizador, todos los bloques y doce intervalos exploratorios.
+- `artifacts/converged_classifier/summary.json`:18 candidatos/folds,18 auditorías de fit con coeficientes/escalas, todos los resultados y hashes.
+- `artifacts/converged_classifier/check_receipt.json`: productor/revisión/Check/hash.
+- `python -m scripts.fetch_converged_result`: recupera lo existente vía Checks API sin iniciar nuevas búsquedas; rechaza scope, fuente, selección, convergencia, candidatos/modelos/intervalos omitidos o agregados alterados.
+- Registro completo con predicciones y bins de calibración en artifact del workflow, retención7días. Agregados preservados en Git. Los hashes locales de los módulos productores coinciden con los publicados.
+- **115 tests locales pasaron**, incluyendo igualdad numérica del control, maduración causal, selección solo con pasado, convergencia, solver independiente, repetición y recepción alterada. No son115 pruebas de utilidad financiera.
+
+Decisión: no promover modelo ni seguir ajustando este mismo histórico hasta obtener verde. La convergencia ahora está verificada, pero no aparece ventaja predictiva en esta tarea/conjunto. Cualquier investigación siguiente necesita una hipótesis informativa distinta y confirmación con datos futuros realmente reservados. No se inicia trading, PnL deUSD20 ni cómputo pagado.
