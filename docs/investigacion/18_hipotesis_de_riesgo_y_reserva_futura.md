@@ -48,3 +48,40 @@ El protocolo reserva fechas y reglas; hoy no podemos generar o certificar pronó
 Solo cálculo público estándar acotado sobre el histórico existente; no servicios premium, GPU, broker, órdenes, PnL deUSD20, Laya ni evolución. Una predicción útil del riesgo no demuestra cómo monetizarla; primero exigir validación futura y luego política operativa/costos/filtros pertinentes, por separado.
 
 Protocolos: `experiments/risk_persistence.json`, `experiments/risk_forward_reserved.json`. Originales Binance Vision https://data.binance.vision/: términos CC BY-NC-SA4.0 salvo designación distinta, solo investigación no comercial. Informe derivado bajo CC BY-NC-SA4.0; términos/atribución en artifact, retención7días, agregados preservados en Git. Sin aval del proveedor.
+
+### Endurecimiento del gate de publicación, antes de empezar la reserva
+
+Revisar solo Check.completed_at NO sería suficiente: la API de Checks permite enviar ese campo y actualizar el output. [3](https://docs.github.com/en/rest/checks/runs?apiVersion=2026-03-10) El protocolo futuro se endurece antes de recoger cualquier forecast: exigir ID/digest de artifact inmutable vinculado a los bytes del registro, created_at del servicio anterior al target y workflow/head/protocolo correctos, más verificación efectiva de los bytes. La documentación de upload-artifact v4 describe IDs/contenido inmutables; borrar/recrear produce otra evidencia, no se admite retrofecharla. [1](https://github.com/actions/upload-artifact)
+
+La retención7días del diagnóstico histórico no alcanza para92targets y análisis final. **Antes de activar la colección hay que resolver la conservación verificable de la evidencia**, sin asumir que metadatos locales o un Check editable son notaría externa, y sin autorizar automáticamente almacenamiento recurrente pagado. Si falta la evidencia al auditar, marcar no verificable; no inventar cobertura. Este cambio solo endurece procedencia/publicación, no modifica métodos, fechas, challenger, benchmark o métricas al observar los resultados históricos.
+
+## Resultado histórico ejecutado
+
+Preregistro/código histórico: `107a4120a63d633fd829d232be871190bd396675`, publicado antes del cálculo. Run público estándar: https://github.com/joaquinignaciomondaca-code/Idea_3/actions/runs/39085620035 , job16segundos. Check117551482462: https://github.com/joaquinignaciomondaca-code/Idea_3/runs/117551482462 , github-actions, mismo head SHA. Reauditoría82archivos/1730días limpia; datos extendidos idénticos a los anteriores. Dos pasadas idénticas, sin HPO.
+
+### Las1.365 predicciones por método, sin elegir períodos
+
+| Método | QLIKE ↓ | MSE ↓ |
+|---|---:|---:|
+| Constante train | −6.259180 | 2.187753e−6 |
+| Rolling20, referencia primaria | −6.206469 | 1.977193e−6 |
+| Rolling60 | −6.369234 | 1.924539e−6 |
+| EWMA94, challenger fijado previamente | **−6.386051** | **1.916240e−6** |
+| Range20 | −6.353514 | 1.936920e−6 |
+
+EWMA94−rolling20: deltaQLIKE−0.179583. IC95% exploratorio bloques14días[−0.328155,−0.064745],60días[−0.295322,−0.083209]. Ambos por debajo de0, pero no son dos pruebas independientes ni corrigen investigación previa/multiplicidad. MSE3.08% menor que rolling20: porcentaje de reducción de error, NO rentabilidad. También rolling60/range20 mejoran QLIKE frente a rolling20 con ambos intervalos negativos; no es evidencia de ganador único.
+
+EWMA mejora al rolling20 en los tres bloques (deltas aproximados−0.502701,−0.025655,−0.082421), pero NO es el mejor método de cada bloque: rolling60 obtiene menor QLIKE en2023 y range20 en2024. Se conservan las diferencias entre métricas: por ejemplo la constante supera rolling20 en QLIKE agregado pero pierde en MSE. No se cambia la primaria para favorecer una narrativa.
+
+Esto hace razonable mantener la hipótesis de riesgo para evaluación futura, no afirmar un alpha o monetizarla. El proxy sigue siendo ruidoso y la interpretación de varianza condicional depende de supuestos no certificados. El clasificador direccional anterior continúa sin ventaja demostrada.
+
+### Entregables y estado operativo real
+
+- `artifacts/risk_persistence/informe.md`: cinco métodos, tres períodos, seis intervalos y límites.
+- `artifacts/risk_persistence/summary.json`: agregados completos, constante histórica congelada0.0011447675359241678, hashes y fuente.
+- `artifacts/risk_persistence/check_receipt.json`: productor, revisión y hash del agregado.
+- `python -m scripts.fetch_risk_result`: recuperación de resultados existentes vía Checks API; no inicia modelos ni colección futura.
+- Registros completos en artifact del run, retención7días; términos/atribución incluidos. Agregados preservados en Git. Código local coincide con los hashes efectivos publicados.
+- **121 tests locales pasaron**, incluidos causalidad de forecast, recurrencia EWMA, fechas consecutivas, repetición, límites de emisión prospectiva, creación exclusiva y rechazo de scope/métricas alterados. Tests sintéticos no son evidencia financiera.
+
+Estado de la reserva: fechas/métodos/primaria fijados, guard local implementado y probado; **sin forecasts futuros, sin cron ni publicación prospectiva habilitados**. Gates pendientes: adquisición fresca, publicación verificable y conservación de evidencia por toda la ventana. El endurecimiento del gate de timestamps/artifacts posterior al diagnóstico histórico NO cambia challenger, referencia, fechas o métricas y ocurre antes de recolectar observaciones futuras. No se autoriza cómputo/almacenamiento recurrente pagado ni operaciones.

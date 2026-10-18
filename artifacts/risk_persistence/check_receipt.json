@@ -1,0 +1,13 @@
+{
+  "id": 117551482462,
+  "name": "Risk persistence \u2014 aggregate report",
+  "head_sha": "107a4120a63d633fd829d232be871190bd396675",
+  "conclusion": "success",
+  "html_url": "https://github.com/joaquinignaciomondaca-code/Idea_3/runs/117551482462",
+  "started_at": "2026-10-18T01:12:29Z",
+  "completed_at": "2026-10-18T01:12:29Z",
+  "run_id": 39085620035,
+  "run_url": "https://github.com/joaquinignaciomondaca-code/Idea_3/actions/runs/39085620035",
+  "app": "github-actions",
+  "summary_sha256": "15669d2ec471002803e6fad2a22b0b46b40403bdb3c30b58f42cf71efd8d6758"
+}

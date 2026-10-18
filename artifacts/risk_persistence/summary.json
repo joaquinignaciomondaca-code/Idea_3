@@ -1,0 +1,248 @@
+{
+  "code_sha256": {
+    "microtrade/risk_forecast.py": "ef77039faf2e6ab6b5583fdb601d3aa257ea335af02a27597db2bb86ba594756",
+    "scripts/run_risk_study.py": "7515e25d28a593b43799c7c0c4584b308a1ec1ad01aafb91c1124e0626ad6ad4"
+  },
+  "data_rows": 1730,
+  "data_sha256": "e18108a6604c4682a1ac0a2423da881b2c4cb9ef36ca828178b46c855d2e48e6",
+  "environment": {
+    "numpy": "2.2.6",
+    "python": "3.12.3"
+  },
+  "experiment_id": "RISK-PERSISTENCE-001",
+  "forward_started": false,
+  "full_result_sha256": "1366c3aeef6558ec83ac1c55f1d2799bb9a8bb6c121e0d1bae62acf79af85390",
+  "historically_pristine_holdout": false,
+  "market_run_enabled": false,
+  "reproduced": true,
+  "results": {
+    "blocks": [
+      {
+        "metrics": {
+          "constant_train": {
+            "mean_forecast": 0.0011447675359241678,
+            "mean_proxy": 0.0005252653565841668,
+            "mse": 1.8430288533135796e-06,
+            "n": 365,
+            "qlike": -6.313713495453318
+          },
+          "ewma94": {
+            "mean_forecast": 0.0005201943499613632,
+            "mean_proxy": 0.0005252653565841668,
+            "mse": 1.4995695178393123e-06,
+            "n": 365,
+            "qlike": -6.393597118501238
+          },
+          "range20": {
+            "mean_forecast": 0.000551692564082383,
+            "mean_proxy": 0.0005252653565841668,
+            "mse": 1.5442232283630707e-06,
+            "n": 365,
+            "qlike": -6.300362631226247
+          },
+          "rolling20": {
+            "mean_forecast": 0.0005207370801209769,
+            "mean_proxy": 0.0005252653565841668,
+            "mse": 1.5792160811818608e-06,
+            "n": 365,
+            "qlike": -5.8908963244127195
+          },
+          "rolling60": {
+            "mean_forecast": 0.0005220181019370058,
+            "mean_proxy": 0.0005252653565841668,
+            "mse": 1.5056240891021554e-06,
+            "n": 365,
+            "qlike": -6.443512374773408
+          }
+        },
+        "test": [
+          "2023-01-01",
+          "2023-12-31"
+        ]
+      },
+      {
+        "metrics": {
+          "constant_train": {
+            "mean_forecast": 0.0011447675359241678,
+            "mean_proxy": 0.0007629241797821021,
+            "mse": 2.3608206820470275e-06,
+            "n": 366,
+            "qlike": -6.106109055477586
+          },
+          "ewma94": {
+            "mean_forecast": 0.0007572811887040297,
+            "mean_proxy": 0.0007629241797821021,
+            "mse": 2.2665707800085876e-06,
+            "n": 366,
+            "qlike": -6.131961381090386
+          },
+          "range20": {
+            "mean_forecast": 0.0008342437628581599,
+            "mean_proxy": 0.0007629241797821021,
+            "mse": 2.2454467314058676e-06,
+            "n": 366,
+            "qlike": -6.155798521678521
+          },
+          "rolling20": {
+            "mean_forecast": 0.0007574328004735854,
+            "mean_proxy": 0.0007629241797821021,
+            "mse": 2.2771043781209772e-06,
+            "n": 366,
+            "qlike": -6.106306573735958
+          },
+          "rolling60": {
+            "mean_forecast": 0.0007533624137336839,
+            "mean_proxy": 0.0007629241797821021,
+            "mse": 2.288928218074541e-06,
+            "n": 366,
+            "qlike": -6.104918229058501
+          }
+        },
+        "test": [
+          "2024-01-01",
+          "2024-12-31"
+        ]
+      },
+      {
+        "metrics": {
+          "constant_train": {
+            "mean_forecast": 0.0011447675359241678,
+            "mean_proxy": 0.0005224754367362521,
+            "mse": 2.286304434696893e-06,
+            "n": 634,
+            "qlike": -6.316150601468612
+          },
+          "ewma94": {
+            "mean_forecast": 0.0005220847022256851,
+            "mean_proxy": 0.0005224754367362521,
+            "mse": 1.953879762586269e-06,
+            "n": 634,
+            "qlike": -6.528390268369206
+          },
+          "range20": {
+            "mean_forecast": 0.000578169153469919,
+            "mean_proxy": 0.0005224754367362521,
+            "mse": 1.984891894127244e-06,
+            "n": 634,
+            "qlike": -6.498251614044373
+          },
+          "rolling20": {
+            "mean_forecast": 0.0005201682006845375,
+            "mean_proxy": 0.0005224754367362521,
+            "mse": 2.033176576220512e-06,
+            "n": 634,
+            "qlike": -6.445969394522634
+          },
+          "rolling60": {
+            "mean_forecast": 0.0005248259070618943,
+            "mean_proxy": 0.0005224754367362521,
+            "mse": 1.9553554088784934e-06,
+            "n": 634,
+            "qlike": -6.47905795465436
+          }
+        },
+        "test": [
+          "2025-01-01",
+          "2026-09-26"
+        ]
+      }
+    ],
+    "constant_train": 0.0011447675359241678,
+    "constant_training_end": "2022-12-30",
+    "metrics": {
+      "constant_train": {
+        "mean_forecast": 0.0011447675359241676,
+        "mean_proxy": 0.0005876934299225305,
+        "mse": 2.1877530495871788e-06,
+        "n": 1365,
+        "qlike": -6.25918008899367
+      },
+      "ewma94": {
+        "mean_forecast": 0.000584642896712569,
+        "mean_proxy": 0.0005876934299225305,
+        "mse": 1.9162399626184517e-06,
+        "n": 1365,
+        "qlike": -6.386051460716564
+      },
+      "range20": {
+        "mean_forecast": 0.000639751096260868,
+        "mean_proxy": 0.0005876934299225305,
+        "mse": 1.9369204710064034e-06,
+        "n": 1365,
+        "qlike": -6.353513657608827
+      },
+      "rolling20": {
+        "mean_forecast": 0.0005839385190120772,
+        "mean_proxy": 0.0005876934299225305,
+        "mse": 1.97719268963184e-06,
+        "n": 1365,
+        "qlike": -6.20646883554971
+      },
+      "rolling60": {
+        "mean_forecast": 0.0005853530224987373,
+        "mean_proxy": 0.0005876934299225305,
+        "mse": 1.9245390839315266e-06,
+        "n": 1365,
+        "qlike": -6.36923430906855
+      }
+    },
+    "paired_ci_vs_rolling20": {
+      "ewma94": {
+        "14": {
+          "delta_qlike": -0.1795826251668533,
+          "lower95": -0.3281550533799951,
+          "upper95": -0.06474483958374164
+        },
+        "60": {
+          "delta_qlike": -0.1795826251668533,
+          "lower95": -0.29532211817278964,
+          "upper95": -0.0832086757384659
+        }
+      },
+      "range20": {
+        "14": {
+          "delta_qlike": -0.14704482205911695,
+          "lower95": -0.2714339509641805,
+          "upper95": -0.04686548372177889
+        },
+        "60": {
+          "delta_qlike": -0.14704482205911695,
+          "lower95": -0.23715037445007384,
+          "upper95": -0.07063636807660158
+        }
+      },
+      "rolling60": {
+        "14": {
+          "delta_qlike": -0.16276547351883952,
+          "lower95": -0.35108775030390527,
+          "upper95": -0.004282573403334732
+        },
+        "60": {
+          "delta_qlike": -0.16276547351883952,
+          "lower95": -0.29384812935451005,
+          "upper95": -0.04412644883157937
+        }
+      }
+    },
+    "winner_promoted": false
+  },
+  "source": {
+    "acquisition_run_id": 39079361222,
+    "artifact_digest": "sha256:af7208f3daaacc306b2e2d752bab6f4d1a47642555e423abdb82f87ec6f40278",
+    "artifact_id": 12117929369,
+    "artifact_name": "primary-BTCUSDT-39079361222-1",
+    "license": "Binance Vision terms, CC BY-NC-SA 4.0 unless otherwise designated; noncommercial research only",
+    "origin": "https://data.binance.vision/",
+    "repository": "joaquinignaciomondaca-code/Idea_3",
+    "revision": "08eb12e0e22f32362383fb78bcbd34ab74b0eee7"
+  },
+  "source_audit": {
+    "errors": [],
+    "extra_dates": [],
+    "missing_dates": [],
+    "observed_rows": 1730,
+    "valid_archives": 82
+  },
+  "spec_sha256": "f4be4379ef49f01d823c5d5dd4a2b7c04f4f3891a8b51202540901396f6b8518",
+  "trading_backtest": false
+}

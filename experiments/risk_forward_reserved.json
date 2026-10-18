@@ -17,10 +17,11 @@
   "primary_metric": "QLIKE=log(h)+y/h; finite for y=0; additive outcome-only constants omitted, can be negative. Lower better; never divide QLIKE values for percentage skill.",
   "data_source": "Binance Vision official daily BTCUSDT files with checksums/receipts; no mirror fallback. Fresh prefix required.",
   "timing": "For target D, cutoff D-2 daily close; publish on D-1 UTC before D00:00UTC. No backfill. Reject stale input, future observations, late publication or overwritten record.",
-  "publication": "Must validate GitHub Check app/head/protocol hash and server completed_at before target start; local timestamp/hash alone is NOT prospective evidence. No scheduled workflow has been activated.",
+  "publication": "Require immutable artifact ID/digest tied to forecast bytes, API server artifact created_at before target start, correct workflow/head/protocol and publication on D-1 UTC. Check completed_at alone is NOT trusted: REST permits client-provided completion times and mutable output. Verify archived bytes against artifact digest; missing/expired/unverifiable evidence is not accepted. No automated publishing integration activated.",
   "static_baseline": "Use constant_train value/data hash from historical frozen report, not a new estimate from heldout targets.",
   "missingness": "Report all92 dates including missing/late/source failures; no silently deleting targets or resetting denominator. Missingness may be nonrandom.",
   "analysis": "One fixed final analysis after last target matures and source is available; no outcome-driven model/horizon/lambda changes. Report all models; primary EWMA vs rolling20 cannot change based on historic winner.",
   "costs": "Forecast-only, no trades, PnL or recurring paid jobs authorized",
-  "caveat": "This reserves a procedure and future dates; it does not collect or certify future forecasts today."
+  "caveat": "This reserves a procedure and future dates; it does not collect or certify future forecasts today.",
+  "evidence_retention": "Before activation define storage covering all92targets and final audit. Current7-day historical artifact retention is insufficient for forward evidence. Do not start with a plan that loses its audit trail; no additional recurring storage costs authorized."
 }
